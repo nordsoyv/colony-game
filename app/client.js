@@ -4,26 +4,25 @@ import React from 'react';
 import { render } from 'react-dom';
 import configureStore from './store/configureStore';
 import Root from './containers/Root';
-import {drawWorld} from './drawWorld';
-
-
-const store = configureStore();
+import { drawWorld} from './drawWorld';
+import { setupKeyBindings }from'./setupKeyBindings';
 import './app.global.css';
 
-store.dispatch({type : 'CREATE_MAP'});
+const store = configureStore();
+setupKeyBindings(store.dispatch);
+
+store.dispatch({ type: 'CREATE_MAP' });
 
 render(
-  <Root store={store} />,
+  <Root store={store}/>,
   document.getElementById('root')
 );
 
-function step (){
-  //do work
-  //console.log('Hi');
+
+function step() {
   drawWorld(store.getState());
 
   requestAnimationFrame(step);
 }
-
 
 requestAnimationFrame(step);
