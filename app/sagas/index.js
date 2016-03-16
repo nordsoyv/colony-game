@@ -1,16 +1,21 @@
-import { take, put } from 'redux-saga/effects';
+import { take, put, select } from 'redux-saga/effects';
 import * as types from '../actions/actionTypes';
 
-function* moveViewDaemon(getState){
+const getMap = state => state.map;
+const getView = state => state.view;
+
+
+function* moveViewDaemon(){
   while(true){
     let action  = yield take(types.MOVE_VIEW);
-    let state = getState();
+    let map = yield select(getMap);
+    let view = yield select(getView);
     let minX = 0;
     let minY = 0;
-    let maxX = state.map.width() - 20;
-    let maxY = state.map.height() - 20;
-    let viewX = state.view.viewX;
-    let viewY = state.view.viewY;
+    let maxX = map.width() - 20;
+    let maxY = map.height() - 20;
+    let viewX = view.viewX;
+    let viewY = view.viewY;
     switch (action.dir){
       case 'UP':
         if(viewY - action.amount <= minY ){

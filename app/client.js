@@ -8,6 +8,7 @@ import {drawWorld} from './drawWorld';
 
 
 const store = configureStore();
+import './app.global.css';
 
 store.dispatch({type : 'CREATE_MAP'});
 
