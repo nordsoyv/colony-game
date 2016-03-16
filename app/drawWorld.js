@@ -40,4 +40,5 @@ export function drawWorld(state) {
       tileDrawer[tile.base.getType()](ctx, x * tileSize, y * tileSize);
     }
   }
+  //console.log('rendering');
 }
