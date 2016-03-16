@@ -15,24 +15,32 @@ export function createMap() {
 
 export function moveViewUp(){
   return {
-    type: types.MOVE_VIEW_UP
+    type: types.MOVE_VIEW,
+    dir: 'UP',
+    amount: 1
   }
 }
 
 export function moveViewDown(){
   return {
-    type: types.MOVE_VIEW_DOWN
+    type: types.MOVE_VIEW,
+    dir: 'DOWN',
+    amount: 1
   }
 }
 
 export function moveViewLeft(){
   return {
-    type: types.MOVE_VIEW_LEFT
+    type: types.MOVE_VIEW,
+    dir: 'LEFT',
+    amount: 1
   }
 }
 
 export function moveViewRight(){
   return {
-    type: types.MOVE_VIEW_RIGHT
+    type: types.MOVE_VIEW,
+    dir: 'RIGHT',
+    amount: 1
   }
 }

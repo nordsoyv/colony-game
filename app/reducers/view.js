@@ -9,13 +9,13 @@ const initialState = {
 let view = (state = initialState, action) => {
   switch (action.type) {
     case types.MOVE_VIEW_DOWN:
-      return Object.assign({}, state, { viewY: state.viewY - 1 });
+      return Object.assign({}, state, { viewY: state.viewY + action.amount });
     case types.MOVE_VIEW_UP:
-      return Object.assign({}, state, { viewY: state.viewY + 1 });
+      return Object.assign({}, state, { viewY: state.viewY - action.amount });
     case types.MOVE_VIEW_RIGHT:
-      return Object.assign({}, state, { viewX: state.viewX + 1 });
+      return Object.assign({}, state, { viewX: state.viewX + action.amount });
     case types.MOVE_VIEW_LEFT:
-      return Object.assign({}, state, { viewX: state.viewX - 1 });
+      return Object.assign({}, state, { viewX: state.viewX - action.amount });
     default:
       return state;
   }

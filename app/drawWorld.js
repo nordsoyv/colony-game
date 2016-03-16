@@ -1,34 +1,46 @@
 const tileSize = 20;
 
+let viewPortWidth = 500;
+let viewPortHeigth = 500;
 
-function drawGrass(ctx, xPos, yPos){
+function drawGrass(ctx, xPos, yPos) {
   ctx.fillStyle = "rgb(65,128,43)";
-  ctx.fillRect(xPos*tileSize, yPos*tileSize, tileSize-1, tileSize-1);
+  ctx.fillRect(xPos * tileSize, yPos * tileSize, tileSize - 1, tileSize - 1);
 }
 
-function drawStone(ctx, xPos, yPos){
+function drawStone(ctx, xPos, yPos) {
   ctx.fillStyle = "rgb(20,20,20)";
-  ctx.fillRect(xPos*tileSize, yPos*tileSize, tileSize-1, tileSize-1);
+  ctx.fillRect(xPos * tileSize, yPos * tileSize, tileSize - 1, tileSize - 1);
 }
 
-function drawDirt(ctx, xPos, yPos){
+function drawDirt(ctx, xPos, yPos) {
   ctx.fillStyle = "rgb(143,88,70)";
-  ctx.fillRect(xPos*tileSize, yPos*tileSize, tileSize-1, tileSize-1);
+  ctx.fillRect(xPos * tileSize, yPos * tileSize, tileSize - 1, tileSize - 1);
 }
 
 let tileDrawer = {
-  'grass' : drawGrass,
-  'stone' : drawStone,
+  'grass': drawGrass,
+  'stone': drawStone,
   'dirt': drawDirt
 };
 
-export function drawWorld(state){
+export function drawWorld(state) {
   let ctx = state.globals.ctx;
   let map = state.map;
-  for(let x = 0; x< map.width(); x++){
-    for(let y=0; y < map.height(); y++){
-      let tile = map.get(x,y);
+
+  let tileStartX = state.view.viewX;
+  let tileStartY = state.view.viewY;
+  let drawXPos = 0;
+  let drawYPos = 0;
+  ctx.clearRect(0, 0, 500, 500);
+
+  for(let x = 0 ; x * tileSize < viewPortWidth; x++){
+    for(let y = 0; y * tileSize < viewPortHeigth; y++){
+      let xTile = tileStartX + x;
+      let yTile = tileStartY + y;
+      let tile = map.get(xTile, yTile);
       tileDrawer[tile.base.getType()](ctx, x, y);
     }
   }
+
 }
