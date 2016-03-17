@@ -61,6 +61,14 @@ let input = (state = initialState, action) => {
         mouseXPos: action.xPos,
         mouseYPos: action.yPos
       });
+    case types.MOUSE_LEAVE:
+      return Object.assign({}, state, {
+        mouseLeftButton : false,
+        mouseRightButton : false,
+        mouseXPos:0,
+        mouseYPos:0,
+        mouseStartDragXPos:0,
+        mouseStartDragYPos:0  });
     default:
       return state;
   }

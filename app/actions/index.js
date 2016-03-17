@@ -72,3 +72,8 @@ export function mouseMove(xPos, yPos){
   }
 }
 
+export function mouseLeave(){
+  return {
+    type: types.MOUSE_LEAVE
+  }
+}

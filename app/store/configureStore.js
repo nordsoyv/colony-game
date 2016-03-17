@@ -7,19 +7,22 @@ import sagas from '../sagas';
 
 import createLogger from 'redux-logger';
 
+import * as types from '../actions/actionTypes';
+
 function filterActions(getState, action) {
   let actionsToFilter = [
     'EFFECT_RESOLVED',
     'EFFECT_TRIGGERED',
-    'MOVE_VIEW',
-    'MOVE_VIEW_LEFT',
-    'MOVE_VIEW_RIGHT',
-    'MOVE_VIEW_UP',
-    'MOVE_VIEW_DOWN',
-    'MOUSE_MOVE'
-
+    types.MOVE_VIEW,
+    types.MOVE_VIEW_LEFT,
+    types.MOVE_VIEW_RIGHT,
+    types.MOVE_VIEW_UP,
+    types.MOVE_VIEW_DOWN,
+    types.MOUSE_MOVE,
+    types.MOUSE_LEAVE,
+    types.MOUSE_BUTTON_DOWN,
+    types.MOUSE_BUTTON_UP
   ];
-
 
   return !actionsToFilter.includes(action.type);
 }

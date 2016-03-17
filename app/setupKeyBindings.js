@@ -1,4 +1,37 @@
-import {moveViewDown,moveViewLeft,moveViewRight,moveViewUp, mouseMove, mouseButtonDown, mouseButtonUp} from './actions';
+import {moveViewDown,moveViewLeft,moveViewRight,moveViewUp, mouseMove, mouseButtonDown, mouseButtonUp, mouseLeave} from './actions';
+
+function setupMouseBindings(dispatch) {
+
+  function getMousePos(event, canvas) {
+    var rect = canvas.getBoundingClientRect();
+    return {
+      x: event.clientX - rect.left,
+      y: event.clientY - rect.top
+    };
+  }
+
+  let canvas = document.getElementById('mainWindow');
+  if (canvas) {
+    canvas.onmousemove = function (event) {
+      let pos = getMousePos(event, canvas);
+      dispatch(mouseMove(pos.x, pos.y))
+    };
+    canvas.onmousedown = function (event) {
+      let pos = getMousePos(event, canvas);
+      dispatch(mouseButtonDown(event.button, pos.x, pos.y));
+    };
+    canvas.onmouseup = function (event) {
+      let pos = getMousePos(event, canvas);
+      dispatch(mouseButtonUp(event.button, pos.x, pos.y));
+    };
+    canvas.onmouseleave = function () {
+      dispatch(mouseLeave());
+    };
+    return;
+  }
+  //loop until we get the canvas element
+  setTimeout(setupMouseBindings, 5, dispatch);
+}
 
 export function setupKeyBindings(dispatch) {
   document.onkeypress = function (event) {
@@ -18,38 +51,5 @@ export function setupKeyBindings(dispatch) {
     }
   };
 
-  function setupMouseBindings() {
-
-    function getMousePos(event, canvas) {
-      var rect = canvas.getBoundingClientRect();
-      return {
-        x: event.clientX - rect.left,
-        y: event.clientY - rect.top
-      };
-    }
-
-
-    let canvas = document.getElementById('mainWindow');
-    if (canvas) {
-      canvas.onmousemove = function (event) {
-        let pos = getMousePos(event, canvas);
-        dispatch(mouseMove(pos.x, pos.y))
-      };
-      canvas.onmousedown = function (event) {
-        let pos = getMousePos(event, canvas);
-        dispatch(mouseButtonDown(event.button, pos.x, pos.y));
-      };
-      canvas.onmouseup = function (event) {
-        let pos = getMousePos(event, canvas);
-        dispatch(mouseButtonUp(event.button, pos.x, pos.y));
-      };
-
-      return;
-    }
-    setTimeout(setupMouseBindings, 5);
-  }
-
-  setupMouseBindings();
-
-
+  setupMouseBindings(dispatch);
 }

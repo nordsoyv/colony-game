@@ -21,7 +21,6 @@ render(
 
 function step() {
   drawWorld(store.getState());
-
   requestAnimationFrame(step);
 }
 

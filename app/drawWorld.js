@@ -40,16 +40,17 @@ function drawMap(state, ctx) {
 
 function drawMouse(state, ctx){
   if(state.input.mouseLeftButton){
-    ctx.strokStyle = 'white';
+    ctx.translate(0.5,0.5);
+    ctx.strokeStyle = "rgb(255,255,255)";
     let width = state.input.mouseXPos - state.input.mouseStartDragXPos;
     let height = state.input.mouseYPos - state.input.mouseStartDragYPos;
     ctx.strokeRect(state.input.mouseStartDragXPos, state.input.mouseStartDragYPos, width, height);
+    ctx.translate(-0.5,-0.5);
   }
 }
 
 export function drawWorld(state) {
   let ctx = state.globals.ctx;
-
   ctx.clearRect(0, 0, 500, 500);
   drawMap(state, ctx);
   drawMouse(state, ctx);
