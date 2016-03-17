@@ -16,15 +16,7 @@ class Map extends Component {
 
   render() {
     return (<div className={styles.container}>
-        <button onClick={this.props.moveViewUp}>  ^   </button>
-        <br/>
-        <button onClick={this.props.moveViewLeft}>  &lt;   </button>
         <canvas id="mainWindow" width="500" height="500"/>
-        <button onClick={this.props.moveViewRight}>  &gt;  </button>
-        <br />
-        <button onClick={this.props.moveViewDown}>  \/  </button>
-
-
       </div>
     )
   }

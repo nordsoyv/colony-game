@@ -16,6 +16,7 @@ function filterActions(getState, action) {
     'MOVE_VIEW_RIGHT',
     'MOVE_VIEW_UP',
     'MOVE_VIEW_DOWN',
+    'MOUSE_MOVE'
 
   ];
 

@@ -24,14 +24,10 @@ let tileDrawer = {
   'dirt': drawDirt
 };
 
-export function drawWorld(state) {
-  let ctx = state.globals.ctx;
-
-  ctx.clearRect(0, 0, 500, 500);
-
+function drawMap(state, ctx) {
   let map = state.map;
-  let tileStartX = state.view.viewX;
-  let tileStartY = state.view.viewY;
+  let tileStartX = state.input.viewX;
+  let tileStartY = state.input.viewY;
   for (let x = 0; x * tileSize < viewPortWidth; x++) {
     for (let y = 0; y * tileSize < viewPortHeight; y++) {
       let xTile = tileStartX + x;
@@ -40,5 +36,22 @@ export function drawWorld(state) {
       tileDrawer[tile.base.getType()](ctx, x * tileSize, y * tileSize);
     }
   }
+}
+
+function drawMouse(state, ctx){
+  if(state.input.mouseLeftButton){
+    ctx.strokStyle = 'white';
+    let width = state.input.mouseXPos - state.input.mouseStartDragXPos;
+    let height = state.input.mouseYPos - state.input.mouseStartDragYPos;
+    ctx.strokeRect(state.input.mouseStartDragXPos, state.input.mouseStartDragYPos, width, height);
+  }
+}
+
+export function drawWorld(state) {
+  let ctx = state.globals.ctx;
+
+  ctx.clearRect(0, 0, 500, 500);
+  drawMap(state, ctx);
+  drawMouse(state, ctx);
   //console.log('rendering');
 }

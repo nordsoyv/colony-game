@@ -44,3 +44,31 @@ export function moveViewRight(){
     amount: 3
   }
 }
+
+export function mouseButtonDown(button, xPos, yPos){
+  return {
+    type: types.MOUSE_BUTTON_DOWN,
+    button,
+    xPos,
+    yPos
+  }
+}
+
+export function mouseButtonUp(button, xPos, yPos){
+  return {
+    type: types.MOUSE_BUTTON_UP,
+    button,
+    xPos,
+    yPos
+
+  }
+}
+
+export function mouseMove(xPos, yPos){
+  return {
+    type: types.MOUSE_MOVE,
+    xPos,
+    yPos
+  }
+}
+

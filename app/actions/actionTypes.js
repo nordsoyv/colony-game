@@ -5,3 +5,6 @@ export const MOVE_VIEW_UP = 'MOVE_VIEW_UP';
 export const MOVE_VIEW_DOWN = 'MOVE_VIEW_DOWN';
 export const MOVE_VIEW_LEFT = 'MOVE_VIEW_LEFT';
 export const MOVE_VIEW_RIGHT = 'MOVE_VIEW_RIGHT';
+export const MOUSE_BUTTON_DOWN = 'MOUSE_BUTTON_DOWN';
+export const MOUSE_BUTTON_UP = 'MOUSE_BUTTON_UP';
+export const MOUSE_MOVE = 'MOUSE_MOVE';
