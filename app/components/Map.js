@@ -9,6 +9,7 @@ class Map extends Component {
   componentDidMount() {
     console.log('mounted');
     var canvas = document.getElementById('mainWindow');
+
     var ctx = canvas.getContext('2d');
     this.props.saveCtx(ctx);
   }
@@ -18,8 +19,7 @@ class Map extends Component {
         <button onClick={this.props.moveViewUp}>  ^   </button>
         <br/>
         <button onClick={this.props.moveViewLeft}>  &lt;   </button>
-        <canvas id="mainWindow" width="500" height="500"
-                style={{borderColor:"black", borderWidth:1 , borderStyle:"solid" }}/>
+        <canvas id="mainWindow" width="500" height="500"/>
         <button onClick={this.props.moveViewRight}>  &gt;  </button>
         <br />
         <button onClick={this.props.moveViewDown}>  \/  </button>
