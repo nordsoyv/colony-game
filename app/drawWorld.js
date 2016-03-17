@@ -1,7 +1,7 @@
 const tileSize = 20;
 
 let viewPortWidth = 500;
-let viewPortHeigth = 500;
+let viewPortHeight = 500;
 
 function drawGrass(ctx, xPos, yPos) {
   ctx.fillStyle = "rgb(65,128,43)";
@@ -33,7 +33,7 @@ export function drawWorld(state) {
   let tileStartX = state.view.viewX;
   let tileStartY = state.view.viewY;
   for (let x = 0; x * tileSize < viewPortWidth; x++) {
-    for (let y = 0; y * tileSize < viewPortHeigth; y++) {
+    for (let y = 0; y * tileSize < viewPortHeight; y++) {
       let xTile = tileStartX + x;
       let yTile = tileStartY + y;
       let tile = map.get(xTile, yTile);
