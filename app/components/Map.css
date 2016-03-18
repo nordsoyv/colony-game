@@ -1,6 +1,8 @@
-.container button {
-    width: 50px;
+.container {
+    flex: 1;
+    background-color: black;
 }
+
 .container canvas {
     border: 1px solid black;
     /*width: 500px;*/
