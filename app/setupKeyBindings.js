@@ -34,6 +34,14 @@ function setupMouseBindings(dispatch) {
 }
 
 export function setupKeyBindings(dispatch) {
+  window.onresize = function () {
+    let rect = document.getElementById('mapContainer').getBoundingClientRect();
+    let canvas = document.getElementById('mainWindow');
+
+    //console.log(rect.width , rect.height);
+    canvas.width = rect.width-5;
+    canvas.height = rect.height-5;
+  };
   document.onkeypress = function (event) {
     switch (event.code) {
       case 'KeyW':

@@ -1,0 +1,18 @@
+.flexContainer {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    align-content: stretch;
+    align-items: flex-start;
+}
+
+.flexSidebar {
+    flex: 0 1 150px;
+    align-self: stretch;
+}
+
+.flexMap {
+    flex: 1 1 auto;
+    align-self: stretch;
+}

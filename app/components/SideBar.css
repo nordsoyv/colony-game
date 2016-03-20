@@ -1,6 +1,6 @@
 .container {
-    width:200px;
     background-color: whitesmoke;
+    height:100%;
 }
 
 .container h1 {

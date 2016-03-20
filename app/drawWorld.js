@@ -50,8 +50,11 @@ function drawMouse(state, ctx){
 }
 
 export function drawWorld(state) {
+  let canvas = document.getElementById('mainWindow');
+  viewPortHeight = canvas.height-1;
+  viewPortWidth = canvas.width-1;
   let ctx = state.globals.ctx;
-  ctx.clearRect(0, 0, 500, 500);
+  ctx.clearRect(0, 0, viewPortWidth, viewPortHeight);
   drawMap(state, ctx);
   drawMouse(state, ctx);
   //console.log('rendering');

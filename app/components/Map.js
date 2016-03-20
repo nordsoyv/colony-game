@@ -15,8 +15,8 @@ class Map extends Component {
   }
 
   render() {
-    return (<div className={styles.container}>
-        <canvas id="mainWindow" width="500" height="500"/>
+    return ( <div id="mapContainer" className={styles.container}>
+        <canvas id="mainWindow" width="500" height="500" />
       </div>
     )
   }
