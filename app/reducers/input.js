@@ -9,6 +9,7 @@ const initialState = {
   mouseYPos:0,
   mouseStartDragXPos:0,
   mouseStartDragYPos:0,
+  dragEvent: false
 };
 
 function isLeftButton(btn){
@@ -55,6 +56,7 @@ let input = (state = initialState, action) => {
       if(isRightButton(action.button)){
         mouseState.mouseRightButton = false;
       }
+      mouseState.dragEvent = true;
       return Object.assign({}, state, mouseState);
     case types.MOUSE_MOVE:
       return Object.assign({},state, {
@@ -69,6 +71,8 @@ let input = (state = initialState, action) => {
         mouseYPos:0,
         mouseStartDragXPos:0,
         mouseStartDragYPos:0  });
+    case types.MOUSE_DRAG_DONE:
+      return Object.assign({}, state, {dragEvent:false});
     default:
       return state;
   }

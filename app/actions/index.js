@@ -77,3 +77,9 @@ export function mouseLeave(){
     type: types.MOUSE_LEAVE
   }
 }
+
+export function mouseDragDone(){
+  return {
+    type: types.MOUSE_DRAG_DONE
+  }
+}
