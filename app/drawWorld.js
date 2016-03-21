@@ -49,6 +49,18 @@ function drawMouse(state, ctx){
   }
 }
 
+function drawEntities(state, ctx) {
+  let colonists = state.simulation.colonists;
+  colonists.forEach(colonist => {
+    let pos = colonist.getPos();
+    let screenX = pos.x - state.input.viewX;
+    let screenY = pos.y - state.input.viewY;
+
+    ctx.fillStyle = "rgb(240,240,240)";
+    ctx.fillText('@', screenX * tileSize, screenY*tileSize)
+
+  })
+}
 export function drawWorld(state) {
   let canvas = document.getElementById('mainWindow');
   viewPortHeight = canvas.height-1;
@@ -56,6 +68,7 @@ export function drawWorld(state) {
   let ctx = state.globals.ctx;
   ctx.clearRect(0, 0, viewPortWidth, viewPortHeight);
   drawMap(state, ctx);
+  drawEntities(state, ctx);
   drawMouse(state, ctx);
   //console.log('rendering');
 }

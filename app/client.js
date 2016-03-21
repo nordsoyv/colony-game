@@ -13,7 +13,7 @@ const store = configureStore();
 setupKeyBindings(store.dispatch);
 
 store.dispatch({ type: 'CREATE_MAP' });
-
+store.dispatch({type: 'INIT_SIMULATION'});
 render(
   <Root store={store}/>,
   document.getElementById('root')
