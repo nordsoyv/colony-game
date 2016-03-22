@@ -68,7 +68,7 @@ function drawMap(state, ctx) {
       let xTile = tileStartX + x;
       let yTile = tileStartY + y;
       let tile = map.get(xTile, yTile);
-      tileDrawer[tile.base.getType()](ctx, x, y);
+      tileDrawer[tile.get('base').getType()](ctx, x, y);
     }
   }
 }
@@ -103,10 +103,10 @@ export function drawWorld(state) {
   if (terrainTiles) {
     drawMap(state, ctx);
   }
-  if(humanTiles)
+  if(humanTiles){
     drawEntities(state, ctx);
+  }
   drawMouse(state, ctx);
-  //console.log('rendering');
 
 
 }
