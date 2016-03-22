@@ -1,10 +1,11 @@
 const tileSize = 16;
 let terrainTiles;
+let humanTiles;
 
 function loadImages() {
   terrainTiles = document.getElementById('terrain');
-  console.log(terrainTiles);
-  if (!terrainTiles) {
+  humanTiles = document.getElementById('humans');
+  if (!(terrainTiles && humanTiles)) {
     setTimeout(loadImages, 5);
   }
 }
@@ -14,17 +15,42 @@ loadImages();
 let viewPortWidth = 500;
 let viewPortHeight = 500;
 
+function drawTerrain(ctx, tileX, tileY, destX, destY) {
+  ctx.drawImage(
+    terrainTiles,
+    tileX * tileSize,
+    tileY * tileSize,
+    tileSize,
+    tileSize,
+    destX * tileSize,
+    destY * tileSize,
+    tileSize,
+    tileSize);
+}
+
+function drawHuman(ctx, tileX, tileY, destX, destY) {
+  ctx.drawImage(
+    humanTiles,
+    tileX * tileSize,
+    tileY * tileSize,
+    tileSize,
+    tileSize,
+    destX * tileSize,
+    destY * tileSize,
+    tileSize,
+    tileSize);
+}
 
 function drawGrass(ctx, xPos, yPos) {
-  ctx.drawImage(terrainTiles, 5 * 16, 3 * 16, 16, 16, xPos, yPos, 16, 16);
+  drawTerrain(ctx, 5, 3, xPos, yPos);
 }
 
 function drawStone(ctx, xPos, yPos) {
-  ctx.drawImage(terrainTiles, 5 * 16, 8 * 16, 16, 16, xPos, yPos, 16, 16);
+  drawTerrain(ctx, 5, 8, xPos, yPos);
 }
 
 function drawDirt(ctx, xPos, yPos) {
-  ctx.drawImage(terrainTiles, 5 * 16, 11 * 16, 16, 16, xPos, yPos, 16, 16);
+  drawTerrain(ctx, 5, 11, xPos, yPos);
 }
 
 let tileDrawer = {
@@ -42,7 +68,7 @@ function drawMap(state, ctx) {
       let xTile = tileStartX + x;
       let yTile = tileStartY + y;
       let tile = map.get(xTile, yTile);
-      tileDrawer[tile.base.getType()](ctx, x * tileSize, y * tileSize);
+      tileDrawer[tile.base.getType()](ctx, x, y);
     }
   }
 }
@@ -64,12 +90,7 @@ function drawEntities(state, ctx) {
     let pos = colonist.getPos();
     let screenX = pos.x - state.input.viewX;
     let screenY = pos.y - state.input.viewY;
-
-    ctx.fillStyle = "rgb(240,240,240)";
-    ctx.textBaseline = 'center';
-    ctx.textAlign = 'center';
-    ctx.fillText('@', (screenX * tileSize) + (tileSize / 2), (screenY * tileSize) + (tileSize / 2))
-
+    drawHuman(ctx, 1,0, screenX, screenY);
   })
 }
 
@@ -82,7 +103,8 @@ export function drawWorld(state) {
   if (terrainTiles) {
     drawMap(state, ctx);
   }
-  drawEntities(state, ctx);
+  if(humanTiles)
+    drawEntities(state, ctx);
   drawMouse(state, ctx);
   //console.log('rendering');
 
