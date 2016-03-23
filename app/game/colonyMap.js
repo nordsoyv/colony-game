@@ -41,29 +41,14 @@ function createTile() {
   }
 }
 
-export class ColonyMap {
-  constructor(width, height) {
-    this._width = width;
-    this._height = height;
-    this._map = new Map();
 
-    for (let i = 0; i < this._width; i++) {
-      for (let j = 0; j < this._height; j++) {
-        let coord = List([i, j]);
-        this._map = this._map.set(coord, Map( {base: createTile() }));
-      }
+export function createMap(width, height){
+  let map = new Map();
+  for (let i = 0; i < width; i++) {
+    for (let j = 0; j < height; j++) {
+      let coord = List([i, j]);
+      map = map.set(coord, Map( {base: createTile() }));
     }
   }
-
-  get(x, y) {
-    return this._map.get(List([x, y]));
-  }
-
-  width() {
-    return this._width;
-  }
-
-  height() {
-    return this._height;
-  }
+  return map;
 }

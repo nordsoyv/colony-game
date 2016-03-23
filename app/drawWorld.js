@@ -1,3 +1,5 @@
+import {List} from 'immutable';
+
 const tileSize = 16;
 let terrainTiles;
 let humanTiles;
@@ -60,14 +62,14 @@ let tileDrawer = {
 };
 
 function drawMap(state, ctx) {
-  let map = state.map;
+  let map = state.world.map;
   let tileStartX = state.input.viewX;
   let tileStartY = state.input.viewY;
   for (let x = 0; x * tileSize < viewPortWidth; x++) {
     for (let y = 0; y * tileSize < viewPortHeight; y++) {
       let xTile = tileStartX + x;
       let yTile = tileStartY + y;
-      let tile = map.get(xTile, yTile);
+      let tile = map.get(List([xTile, yTile]));
       tileDrawer[tile.get('base').getType()](ctx, x, y);
     }
   }
@@ -96,8 +98,8 @@ function drawEntities(state, ctx) {
 
 export function drawWorld(state) {
   let canvas = document.getElementById('mainWindow');
-  viewPortHeight = canvas.height - 1;
-  viewPortWidth = canvas.width - 1;
+  //viewPortHeight = canvas.height - 1;
+  //viewPortWidth = canvas.width - 1;
   let ctx = state.globals.ctx;
   ctx.clearRect(0, 0, viewPortWidth, viewPortHeight);
   if (terrainTiles) {

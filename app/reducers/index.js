@@ -1,12 +1,12 @@
 import { combineReducers } from 'redux';
 import globals from './global';
-import map from './map';
+import world from './world';
 import input from './input';
 import simulation from './simulation';
 
 const rootReducer = combineReducers({
   globals,
-  map,
+  world,
   input,
   simulation
 });
