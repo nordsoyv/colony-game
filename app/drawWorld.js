@@ -25,7 +25,7 @@ function drawTerrain(ctx, tileX, tileY, destX, destY) {
     tileSize,
     tileSize,
     destX * tileSize,
-    destY * tileSize,
+    viewPortHeight - (destY * tileSize) ,
     tileSize,
     tileSize);
 }
@@ -38,7 +38,7 @@ function drawHuman(ctx, tileX, tileY, destX, destY) {
     tileSize,
     tileSize,
     destX * tileSize,
-    destY * tileSize,
+    viewPortHeight - (destY * tileSize),
     tileSize,
     tileSize);
 }
@@ -70,7 +70,8 @@ function drawMap(state, ctx) {
       let xTile = tileStartX + x;
       let yTile = tileStartY + y;
       let tile = map.get(List([xTile, yTile]));
-      tileDrawer[tile.get('base').getType()](ctx, x, y);
+      if(tile)
+        tileDrawer[tile.get('base').getType()](ctx, x, y);
     }
   }
 }

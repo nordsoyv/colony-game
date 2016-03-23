@@ -19,17 +19,17 @@ function* moveViewDaemon(){
     let viewY = input.viewY;
     switch (action.dir){
       case 'UP':
-        if(viewY - action.amount <= minY ){
-          yield put({type:types.MOVE_VIEW_UP, amount: viewY - minY});
+        if(viewY + action.amount >= maxX ){
+          yield put({type:types.MOVE_VIEW_UP, amount: maxY - viewY});
         }else{
           yield put({type:types.MOVE_VIEW_UP, amount: action.amount});
         }
         break;
       case 'DOWN':
-        if(viewY + action.amount <= maxY ){
-          yield put({type:types.MOVE_VIEW_DOWN, amount: action.amount});
+        if(viewY - action.amount > minY ){
+          yield put({type:types.MOVE_VIEW_DOWN, amount: action.amount });
         }else{
-          yield put({type:types.MOVE_VIEW_DOWN, amount: maxY - viewY});
+          yield put({type:types.MOVE_VIEW_DOWN, amount: viewY});
         }
         break;
       case 'RIGHT':
