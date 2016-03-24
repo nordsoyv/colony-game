@@ -1,4 +1,5 @@
 import { Map, List } from 'immutable';
+import {createTree} from './simulateWorld';
 
 class BaseTile {
   getType() {
@@ -28,17 +29,26 @@ function getRandomInt(min, max) {
   return Math.floor(Math.random() * (max - min)) + min;
 }
 
-function createTile() {
+function createTile(i,j) {
+  let tile = new Map({ entities: new List()});
+
   let type = getRandomInt(0, 10);
   switch (type) {
     case 0:
-      return new StoneTile();
+      tile = tile.set('base', new StoneTile());
+      break;
     case 1:
     case 2:
-      return new DirtTile();
+      tile = tile.set('base', new DirtTile());
+      break;
     default:
-      return new GrassTile()
+      tile = tile.set('base', new GrassTile());
+      if(getRandomInt(0,10) == 0 ){
+        tile = tile.set('entities', tile.get('entities').push(createTree(i,j)) )
+      }
+      break;
   }
+  return tile;
 }
 
 
@@ -47,7 +57,7 @@ export function createMap(width, height) {
   for (let i = 0; i < width; i++) {
     for (let j = 0; j < height; j++) {
       let coord = List([i, j]);
-      map = map.set(coord, Map({ base: createTile(), entities: new List() }));
+      map = map.set(coord, createTile(i,j));
     }
   }
   return map;

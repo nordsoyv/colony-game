@@ -25,12 +25,12 @@ function drawTerrain(ctx, tileX, tileY, destX, destY) {
     tileSize,
     tileSize,
     destX * tileSize,
-    viewPortHeight - (destY * tileSize) ,
+    viewPortHeight - (destY * tileSize),
     tileSize,
     tileSize);
 }
 
-function drawHuman(ctx, tileX, tileY, destX, destY) {
+function drawHumanTile(ctx, tileX, tileY, destX, destY) {
   ctx.drawImage(
     humanTiles,
     tileX * tileSize,
@@ -43,8 +43,16 @@ function drawHuman(ctx, tileX, tileY, destX, destY) {
     tileSize);
 }
 
+function drawHuman(ctx, destX, destY) {
+  drawHumanTile(ctx, 1, 0, destX, destY)
+}
+
 function drawGrass(ctx, xPos, yPos) {
   drawTerrain(ctx, 5, 3, xPos, yPos);
+}
+
+function drawTree(ctx, xPos, yPos) {
+  drawTerrain(ctx, 12, 12, xPos, yPos);
 }
 
 function drawStone(ctx, xPos, yPos) {
@@ -61,6 +69,11 @@ let tileDrawer = {
   'dirt': drawDirt
 };
 
+let entityDrawer = {
+  'human': drawHuman,
+  'tree': drawTree
+};
+
 function drawMap(state, ctx) {
   let map = state.world.map;
   let tileStartX = state.input.viewX;
@@ -70,12 +83,12 @@ function drawMap(state, ctx) {
       let xTile = tileStartX + x;
       let yTile = tileStartY + y;
       let tile = map.get(List([xTile, yTile]));
-      if(tile) {
+      if (tile) {
         tileDrawer[tile.get('base').getType()](ctx, x, y);
         let entities = tile.get('entities');
         entities.forEach(entity => {
-          drawHuman(ctx, 1,0, x,y)
-        })
+          entityDrawer[entity.type](ctx,x,y);
+        });
       }
     }
   }

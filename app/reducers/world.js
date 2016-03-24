@@ -1,7 +1,7 @@
 import * as types from '../actions/actionTypes'
 import {createMap} from '../game/createMap';
 import {List} from 'immutable';
-import {Colonist} from '../game/simulateWorld';
+import { createColonist} from '../game/simulateWorld';
 const initialState = {
   map: null,
   width: 0,
@@ -25,7 +25,7 @@ let world = (state = initialState, action) => {
   switch (action.type) {
     case types.CREATE_MAP:
       let map = createMap(100, 100);
-      let colonist = new Colonist(5, 5);
+      let colonist = createColonist(5,5);
       map = addEntityToTile(map,colonist,5,5);
       return Object.assign({}, state, { map: map, width: 100, height: 100 });
     default:
