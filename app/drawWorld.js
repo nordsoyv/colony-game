@@ -14,8 +14,8 @@ function loadImages() {
 
 loadImages();
 
-let viewPortWidth = 500;
-let viewPortHeight = 500;
+let viewPortWidth = 512;
+let viewPortHeight = 512;
 
 function drawTerrain(ctx, tileX, tileY, destX, destY) {
   ctx.drawImage(
@@ -70,8 +70,13 @@ function drawMap(state, ctx) {
       let xTile = tileStartX + x;
       let yTile = tileStartY + y;
       let tile = map.get(List([xTile, yTile]));
-      if(tile)
+      if(tile) {
         tileDrawer[tile.get('base').getType()](ctx, x, y);
+        let entities = tile.get('entities');
+        entities.forEach(entity => {
+          drawHuman(ctx, 1,0, x,y)
+        })
+      }
     }
   }
 }
@@ -87,27 +92,14 @@ function drawMouse(state, ctx) {
   }
 }
 
-function drawEntities(state, ctx) {
-  let colonists = state.simulation.colonists;
-  colonists.forEach(colonist => {
-    let pos = colonist.getPos();
-    let screenX = pos.x - state.input.viewX;
-    let screenY = pos.y - state.input.viewY;
-    drawHuman(ctx, 1,0, screenX, screenY);
-  })
-}
-
 export function drawWorld(state) {
   let canvas = document.getElementById('mainWindow');
   //viewPortHeight = canvas.height - 1;
   //viewPortWidth = canvas.width - 1;
   let ctx = state.globals.ctx;
   ctx.clearRect(0, 0, viewPortWidth, viewPortHeight);
-  if (terrainTiles) {
+  if (terrainTiles && humanTiles) {
     drawMap(state, ctx);
-  }
-  if(humanTiles){
-    drawEntities(state, ctx);
   }
   drawMouse(state, ctx);
 

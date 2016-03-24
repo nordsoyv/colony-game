@@ -42,12 +42,12 @@ function createTile() {
 }
 
 
-export function createMap(width, height){
+export function createMap(width, height) {
   let map = new Map();
   for (let i = 0; i < width; i++) {
     for (let j = 0; j < height; j++) {
       let coord = List([i, j]);
-      map = map.set(coord, Map( {base: createTile() }));
+      map = map.set(coord, Map({ base: createTile(), entities: new List() }));
     }
   }
   return map;

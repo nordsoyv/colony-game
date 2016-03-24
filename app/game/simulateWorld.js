@@ -7,6 +7,7 @@ class BaseEntity{
     this.x = _x;
     this.y = _y;
     this.type = 'baseEntity';
+    this.tags =[];
   }
 
   getPos(){
@@ -16,8 +17,11 @@ class BaseEntity{
   getType(){
     return this.type;
   }
-}
 
+  getTags(){
+    return this.tags;
+  }
+}
 
 export class Colonist extends BaseEntity{
   constructor(_x,_y){
