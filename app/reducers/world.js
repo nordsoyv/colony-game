@@ -1,7 +1,7 @@
 import * as types from '../actions/actionTypes'
 import {createMap} from '../game/createMap';
 import {List} from 'immutable';
-import { createColonist} from '../game/simulateWorld';
+import { createColonist} from '../game/entities';
 const initialState = {
   map: null,
   width: 0,

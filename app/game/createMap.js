@@ -1,5 +1,5 @@
 import { Map, List } from 'immutable';
-import {createTree} from './simulateWorld';
+import {createTree} from './entities';
 
 class BaseTile {
   getType() {
