@@ -71,8 +71,8 @@ function drawGrass(ctx, xPos, yPos) {
   drawTerrain(ctx, 5, 3, xPos, yPos);
 }
 
-function drawTree(ctx, xPos, yPos) {
-  drawTerrain(ctx, 12, 12, xPos, yPos);
+function drawTree(ctx, xPos, yPos, subType) {
+  drawTerrain(ctx, 11 + subType, 12, xPos, yPos);
 }
 
 function drawStone(ctx, xPos, yPos) {
@@ -83,8 +83,8 @@ function drawDirt(ctx, xPos, yPos) {
   drawTerrain(ctx, 5, 11, xPos, yPos);
 }
 
-function drawStoneEntity(ctx, xPos, yPos){
-  drawItemTile(ctx, 36, 5, xPos, yPos);
+function drawStoneEntity(ctx, xPos, yPos, subType){
+  drawItemTile(ctx, 36 + subType, 5, xPos, yPos);
 }
 
 let tileDrawer = {
@@ -112,7 +112,7 @@ function drawMap(state, ctx) {
         tileDrawer[tile.get('base').getType()](ctx, x, y);
         let entities = tile.get('entities');
         entities.forEach(entity => {
-          entityDrawer[entity.type](ctx,x,y);
+          entityDrawer[entity.type](ctx,x,y, entity.subType);
         });
       }
     }
