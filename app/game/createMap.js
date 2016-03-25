@@ -1,5 +1,5 @@
 import { Map, List } from 'immutable';
-import {createTree} from './entities';
+import {createTree, createStone} from './entities';
 
 class BaseTile {
   getType() {
@@ -36,6 +36,10 @@ function createTile(i,j) {
   switch (type) {
     case 0:
       tile = tile.set('base', new StoneTile());
+      if(getRandomInt(0,10) < 8 ){
+        tile = tile.set('entities', tile.get('entities').push(createStone(i,j)) )
+      }
+      break;
       break;
     case 1:
     case 2:

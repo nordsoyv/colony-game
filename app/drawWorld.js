@@ -3,11 +3,18 @@ import {List} from 'immutable';
 const tileSize = 16;
 let terrainTiles;
 let humanTiles;
+let itemTiles;
+
+let imagesLoaded = false;
 
 function loadImages() {
   terrainTiles = document.getElementById('terrain');
   humanTiles = document.getElementById('humans');
-  if (!(terrainTiles && humanTiles)) {
+  itemTiles = document.getElementById('items');
+  if(terrainTiles && humanTiles && itemTiles){
+    imagesLoaded = true;
+  }
+  if (!imagesLoaded) {
     setTimeout(loadImages, 5);
   }
 }
@@ -43,6 +50,19 @@ function drawHumanTile(ctx, tileX, tileY, destX, destY) {
     tileSize);
 }
 
+function drawItemTile(ctx, tileX, tileY, destX, destY) {
+  ctx.drawImage(
+    itemTiles,
+    tileX * tileSize,
+    tileY * tileSize,
+    tileSize,
+    tileSize,
+    destX * tileSize,
+    viewPortHeight - (destY * tileSize),
+    tileSize,
+    tileSize);
+}
+//stone 36 ,5
 function drawHuman(ctx, destX, destY) {
   drawHumanTile(ctx, 1, 0, destX, destY)
 }
@@ -63,6 +83,10 @@ function drawDirt(ctx, xPos, yPos) {
   drawTerrain(ctx, 5, 11, xPos, yPos);
 }
 
+function drawStoneEntity(ctx, xPos, yPos){
+  drawItemTile(ctx, 36, 5, xPos, yPos);
+}
+
 let tileDrawer = {
   'grass': drawGrass,
   'stone': drawStone,
@@ -71,7 +95,8 @@ let tileDrawer = {
 
 let entityDrawer = {
   'human': drawHuman,
-  'tree': drawTree
+  'tree': drawTree,
+  'stone': drawStoneEntity
 };
 
 function drawMap(state, ctx) {
@@ -111,7 +136,7 @@ export function drawWorld(state) {
   //viewPortWidth = canvas.width - 1;
   let ctx = state.globals.ctx;
   ctx.clearRect(0, 0, viewPortWidth, viewPortHeight);
-  if (terrainTiles && humanTiles) {
+  if (imagesLoaded) {
     drawMap(state, ctx);
   }
   drawMouse(state, ctx);
