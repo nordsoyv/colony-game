@@ -1,5 +1,6 @@
 import { Map, List } from 'immutable';
 import {createTree, createStone} from './entities';
+import {getRandomInt} from '../utils/getRandomInt';
 
 class BaseTile {
   getType() {
@@ -23,10 +24,6 @@ class DirtTile extends BaseTile {
   getType() {
     return 'dirt';
   }
-}
-
-function getRandomInt(min, max) {
-  return Math.floor(Math.random() * (max - min)) + min;
 }
 
 function createTile(i,j) {
