@@ -1,30 +1,6 @@
 import { Map, List } from 'immutable';
-import {createTree, createStone} from './entities';
+import * as entities from './entities';
 import {getRandomInt} from '../utils/getRandomInt';
-
-class BaseTile {
-  getType() {
-    return 'unknown';
-  }
-}
-
-class GrassTile extends BaseTile {
-  getType() {
-    return 'grass';
-  }
-}
-
-class StoneTile extends BaseTile {
-  getType() {
-    return 'stone';
-  }
-}
-
-class DirtTile extends BaseTile {
-  getType() {
-    return 'dirt';
-  }
-}
 
 function createTile(i,j) {
   let tile = new Map({ entities: new List()});
@@ -32,20 +8,20 @@ function createTile(i,j) {
   let type = getRandomInt(0, 10);
   switch (type) {
     case 0:
-      tile = tile.set('base', new StoneTile());
+      tile = tile.set('base', entities.createStoneTile(i,j));
       if(getRandomInt(0,10) < 8 ){
-        tile = tile.set('entities', tile.get('entities').push(createStone(i,j)) )
+        tile = tile.set('entities', tile.get('entities').push(entities.createStone(i,j)) )
       }
       break;
       break;
     case 1:
     case 2:
-      tile = tile.set('base', new DirtTile());
+      tile = tile.set('base', entities.createDirtTile(i,j));
       break;
     default:
-      tile = tile.set('base', new GrassTile());
+      tile = tile.set('base', entities.createGrassTile(i,j));
       if(getRandomInt(0,10) == 0 ){
-        tile = tile.set('entities', tile.get('entities').push(createTree(i,j)) )
+        tile = tile.set('entities', tile.get('entities').push(entities.createTree(i,j)) )
       }
       break;
   }

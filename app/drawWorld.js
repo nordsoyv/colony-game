@@ -62,12 +62,12 @@ function drawItemTile(ctx, tileX, tileY, destX, destY) {
     tileSize,
     tileSize);
 }
-//stone 36 ,5
+
 function drawHuman(ctx, destX, destY) {
   drawHumanTile(ctx, 1, 0, destX, destY)
 }
 
-function drawGrass(ctx, xPos, yPos) {
+function drawGrassTile(ctx, xPos, yPos) {
   drawTerrain(ctx, 5, 3, xPos, yPos);
 }
 
@@ -75,28 +75,25 @@ function drawTree(ctx, xPos, yPos, subType) {
   drawTerrain(ctx, 11 + subType, 12, xPos, yPos);
 }
 
-function drawStone(ctx, xPos, yPos) {
+function drawStoneTile(ctx, xPos, yPos) {
   drawTerrain(ctx, 5, 8, xPos, yPos);
 }
 
-function drawDirt(ctx, xPos, yPos) {
+function drawDirtTile(ctx, xPos, yPos) {
   drawTerrain(ctx, 5, 11, xPos, yPos);
 }
 
-function drawStoneEntity(ctx, xPos, yPos, subType){
+function drawStone(ctx, xPos, yPos, subType){
   drawItemTile(ctx, 36 + subType, 5, xPos, yPos);
 }
-
-let tileDrawer = {
-  'grass': drawGrass,
-  'stone': drawStone,
-  'dirt': drawDirt
-};
 
 let entityDrawer = {
   'human': drawHuman,
   'tree': drawTree,
-  'stone': drawStoneEntity
+  'stone': drawStone,
+  'grass-tile': drawGrassTile,
+  'stone-tile': drawStoneTile,
+  'dirt-tile': drawDirtTile
 };
 
 function drawMap(state, ctx) {
@@ -109,7 +106,8 @@ function drawMap(state, ctx) {
       let yTile = tileStartY + y;
       let tile = map.get(List([xTile, yTile]));
       if (tile) {
-        tileDrawer[tile.get('base').getType()](ctx, x, y);
+        let baseEntity = tile.get('base');
+        entityDrawer[baseEntity.type](ctx, x, y, baseEntity.subType);
         let entities = tile.get('entities');
         entities.forEach(entity => {
           entityDrawer[entity.type](ctx,x,y, entity.subType);
@@ -132,8 +130,8 @@ function drawMouse(state, ctx) {
 
 export function drawWorld(state) {
   let canvas = document.getElementById('mainWindow');
-  //viewPortHeight = canvas.height - 1;
-  //viewPortWidth = canvas.width - 1;
+  viewPortHeight = canvas.height;
+  viewPortWidth = canvas.width;
   let ctx = state.globals.ctx;
   ctx.clearRect(0, 0, viewPortWidth, viewPortHeight);
   if (imagesLoaded) {
