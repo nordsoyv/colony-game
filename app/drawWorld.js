@@ -1,4 +1,5 @@
 import {List} from 'immutable';
+import * as entityTypes from './game/entityTypes';
 
 const tileSize = 16;
 let terrainTiles;
@@ -88,12 +89,12 @@ function drawStone(ctx, xPos, yPos, subType){
 }
 
 let entityDrawer = {
-  'human': drawHuman,
-  'tree': drawTree,
-  'stone': drawStone,
-  'grass-tile': drawGrassTile,
-  'stone-tile': drawStoneTile,
-  'dirt-tile': drawDirtTile
+  [entityTypes.HUMAN] : drawHuman,
+  [entityTypes.TREE]: drawTree,
+  [entityTypes.STONE]: drawStone,
+  [entityTypes.GRASS_TILE]: drawGrassTile,
+  [entityTypes.STONE_TILE]: drawStoneTile,
+  [entityTypes.DIRT_TILE]: drawDirtTile
 };
 
 function drawMap(state, ctx) {

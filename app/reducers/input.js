@@ -25,7 +25,7 @@ function createMouseState(action){
     mouseStartDragYPos: action.yPos,
     mouseXPos: action.xPos,
     mouseYPos: action.yPos,
-  }
+  };
 }
 
 let input = (state = initialState, action) => {

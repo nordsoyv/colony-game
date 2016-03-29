@@ -1,7 +1,7 @@
-import {getDynamicEntityList} from'./entities';
 import {addEntityToTile,removeEntityFromTile} from './mapUtils';
-import { Map, List } from 'immutable';
+import { List } from 'immutable';
 import {setWorld} from '../actions';
+import * as entityTypes from './entityTypes';
 
 function doHumanStep(entity, map) {
   if (entity.get('state') == 'moving') {
@@ -29,7 +29,7 @@ export function simulateWorld(getState, dispatch) {
   let map = state.world.map;
   let entities = state.world.entities;
   entities.forEach((entity, index) => {
-    if (entity.get('type') == 'human') {
+    if (entity.get('type') == entityTypes.HUMAN) {
       let ret = doHumanStep(entity, map);
       map = ret.map;
       entities = entities.set(index, ret.entity);

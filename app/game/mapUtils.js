@@ -1,4 +1,3 @@
-import { Map, List } from 'immutable';
 
 export function addEntityToTile(map, entity, pos) {
   let tile = map.get(pos);

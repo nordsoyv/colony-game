@@ -29,15 +29,33 @@ render(
 function doInputHandling() {
   let state = store.getState();
   if (state.input.dragEvent) {
+    // let xStart = state.input.mouseXPos;
+    // let yStart = state.input.mouseYPos;
+    // let xEnd = state.input.mouseStartDragXPos;
+    // let yEnd = state.input.mouseStartDragYPos;
+    
+    
+    
+    
+    
+    
+    
+    
+    
     store.dispatch({ type: 'MOUSE_DRAG_DONE' });
   }
 }
 
 function step() {
   doInputHandling();
-  simulateWorld(store.getState, store.dispatch);
   drawWorld(store.getState());
   requestAnimationFrame(step);
 }
 
 requestAnimationFrame(step);
+
+function doSimulationStep(){
+  simulateWorld(store.getState, store.dispatch);
+}
+
+setInterval(doSimulationStep, 1000);
