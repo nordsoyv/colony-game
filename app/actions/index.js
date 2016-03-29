@@ -6,6 +6,7 @@ export function saveCtx(ctx) {
     ctx
   }
 }
+
 export function setWorld(map, dynamicEntities){
   return {
     type: types.SET_WORLD,
@@ -13,6 +14,12 @@ export function setWorld(map, dynamicEntities){
     dynamicEntities,
     width:100,
     height:100
+  }
+}
+
+export function pauseSimulation() {
+  return {
+    type: types.PAUSE_SIMULATION
   }
 }
 

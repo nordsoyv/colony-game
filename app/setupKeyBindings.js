@@ -1,4 +1,4 @@
-import {moveViewDown,moveViewLeft,moveViewRight,moveViewUp, mouseMove, mouseButtonDown, mouseButtonUp, mouseLeave} from './actions';
+import {moveViewDown,moveViewLeft,moveViewRight,moveViewUp, mouseMove, mouseButtonDown, mouseButtonUp, mouseLeave,pauseSimulation } from './actions';
 
 function setupMouseBindings(dispatch) {
 
@@ -46,6 +46,9 @@ export function setupKeyBindings(dispatch) {
 */
   document.onkeypress = function (event) {
     switch (event.code) {
+      case 'Space':
+        dispatch(pauseSimulation());
+        break;
       case 'KeyW':
         dispatch(moveViewUp());
         break;

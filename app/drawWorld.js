@@ -128,6 +128,14 @@ function drawMouse(state, ctx) {
   }
 }
 
+function drawPaused(state, ctx) {
+  if(state.world.paused){
+    ctx.fillStyle = 'white';
+    ctx.font = "48px serif";
+    ctx.fillText('PAUSED', 200, 200);
+  }
+}
+
 export function drawWorld(state) {
   let canvas = document.getElementById('mainWindow');
   viewPortHeight = canvas.height;
@@ -138,6 +146,7 @@ export function drawWorld(state) {
     drawMap(state, ctx);
   }
   drawMouse(state, ctx);
+  drawPaused(state, ctx);
 
 
 }
