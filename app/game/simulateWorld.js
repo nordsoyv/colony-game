@@ -2,7 +2,13 @@ import {getDynamicEntityList} from'./entities';
 
 
 function doHumanStep(entity) {
-  //console.log('thinking');
+  if(entity.state == 'moving'){
+    if(!entity.path){
+      entity.state ='idle';
+    }else {
+
+    }
+  }
 }
 
 export function simulateWorld(getState) {

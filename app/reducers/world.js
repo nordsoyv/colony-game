@@ -6,7 +6,8 @@ const initialState = {
   map: null,
   width: 0,
   height: 0,
-  entities: null
+  entities: null,
+  paused: true
 
 };
 
@@ -23,11 +24,10 @@ function addEntityToTile(map, entity, tileX, tileY) {
 
 let world = (state = initialState, action) => {
   switch (action.type) {
-    case types.CREATE_MAP:
-      let map = createMap(100, 100);
-      let colonist = createColonist(5,5);
-      map = addEntityToTile(map,colonist,5,5);
-      return Object.assign({}, state, { map: map, width: 100, height: 100 });
+    case types.SET_WORLD:
+      return Object.assign({}, state, { map: action.map, entities: action.dynamicEntities, width: action.width, height: action.height });
+    case types.PAUSE_SIMULATION:
+      return Object.assign({}, state, { paused : !state.paused } );
     default:
       return state;
   }

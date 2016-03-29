@@ -6,10 +6,13 @@ export function saveCtx(ctx) {
     ctx
   }
 }
-
-export function createMap() {
+export function setWorld(map, dynamicEntities){
   return {
-    type: types.CREATE_MAP
+    type: types.SET_WORLD,
+    map,
+    dynamicEntities,
+    width:100,
+    height:100
   }
 }
 

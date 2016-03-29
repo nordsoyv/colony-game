@@ -13,7 +13,7 @@ let createStaticEntity = (x, y, type, tags = [], subType = 0) => {
 };
 
 let createDynamicEntity = (x, y, type, tags = [], subType = 0) => {
-  let e = createStaticEntity(x,y,type,tags,subType);
+  let e = createStaticEntity(x, y, type, tags, subType);
   e.status = 'idle';
   globalEntityList.push(e);
   return e;
@@ -21,24 +21,33 @@ let createDynamicEntity = (x, y, type, tags = [], subType = 0) => {
 
 const IMPASSABLE = 'IMPASSABLE';
 
-export let getDynamicEntityList = () => globalEntityList;
+export function getDynamicEntityList() {
+  return globalEntityList;
+}
 
-export let createDirtTile = (x,y )=> {
-  return createStaticEntity(x,y,'dirt-tile');
+export function resetDynamicEntityList() {
+  globalEntityList = [];
+}
+
+export let createDirtTile = (x, y)=> {
+  return createStaticEntity(x, y, 'dirt-tile');
 };
 
 
-export let createStoneTile = (x,y )=> {
-  return createStaticEntity(x,y,'stone-tile');
+export let createStoneTile = (x, y)=> {
+  return createStaticEntity(x, y, 'stone-tile');
 };
 
 
-export let createGrassTile = (x,y )=> {
-  return createStaticEntity(x,y,'grass-tile');
+export let createGrassTile = (x, y)=> {
+  return createStaticEntity(x, y, 'grass-tile');
 };
 
 export let createColonist = (x, y) => {
-  return createDynamicEntity(x, y, 'human');
+  let e = createDynamicEntity(x, y, 'human');
+  e.state = 'moving';
+  e.path = [[6, 5], [7, 5], [8, 5]];
+  return e;
 };
 
 export let createTree = (x, y) => {

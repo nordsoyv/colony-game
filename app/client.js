@@ -7,13 +7,19 @@ import Root from './containers/Root';
 import { drawWorld} from './drawWorld';
 import {simulateWorld} from './game/simulateWorld';
 import { setupKeyBindings }from'./setupKeyBindings';
+import {createMap} from './game/createMap';
+import {setWorld} from './actions';
 import './app.global.css';
 
 const store = configureStore();
 setupKeyBindings(store.dispatch);
 
-store.dispatch({ type: 'CREATE_MAP' });
-store.dispatch({type: 'INIT_SIMULATION'});
+store.dispatch({ type: 'INIT_SIMULATION' });
+
+let world = createMap(100, 100);
+store.dispatch(setWorld(world.map, world.entities));
+
+
 render(
   <Root store={store}/>,
   document.getElementById('root')
@@ -22,12 +28,9 @@ render(
 
 function doInputHandling() {
   let state = store.getState();
-
-  if(state.input.dragEvent){
-    store.dispatch({type: 'MOUSE_DRAG_DONE'});
+  if (state.input.dragEvent) {
+    store.dispatch({ type: 'MOUSE_DRAG_DONE' });
   }
-
-
 }
 
 function step() {

@@ -48,7 +48,6 @@ function* moveViewDaemon(){
         break;
     }
   }
-
 }
 
 export default [
