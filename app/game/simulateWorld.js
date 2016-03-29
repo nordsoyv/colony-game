@@ -12,6 +12,11 @@ function doHumanStep(entity) {
 }
 
 export function simulateWorld(getState) {
+  let state = getState();
+  if(state.world.paused){
+    return;
+  }
+
   getDynamicEntityList().forEach(entity => {
     if(entity.type == 'human'){
       doHumanStep(entity);
