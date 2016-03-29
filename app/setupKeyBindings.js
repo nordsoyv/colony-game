@@ -1,4 +1,4 @@
-import {moveViewDown,moveViewLeft,moveViewRight,moveViewUp, mouseMove, mouseButtonDown, mouseButtonUp, mouseLeave,pauseSimulation } from './actions';
+import * as actions from './actions';
 
 function setupMouseBindings(dispatch) {
 
@@ -14,18 +14,18 @@ function setupMouseBindings(dispatch) {
   if (canvas) {
     canvas.onmousemove = function (event) {
       let pos = getMousePos(event, canvas);
-      dispatch(mouseMove(pos.x, pos.y))
+      dispatch(actions.mouseMove(pos.x, pos.y))
     };
     canvas.onmousedown = function (event) {
       let pos = getMousePos(event, canvas);
-      dispatch(mouseButtonDown(event.button, pos.x, pos.y));
+      dispatch(actions.mouseButtonDown(event.button, pos.x, pos.y));
     };
     canvas.onmouseup = function (event) {
       let pos = getMousePos(event, canvas);
-      dispatch(mouseButtonUp(event.button, pos.x, pos.y));
+      dispatch(actions.mouseButtonUp(event.button, pos.x, pos.y));
     };
     canvas.onmouseleave = function () {
-      dispatch(mouseLeave());
+      dispatch(actions.mouseLeave());
     };
     return;
   }
@@ -47,19 +47,19 @@ export function setupKeyBindings(dispatch) {
   document.onkeypress = function (event) {
     switch (event.code) {
       case 'Space':
-        dispatch(pauseSimulation());
+        dispatch(actions.pauseSimulation());
         break;
       case 'KeyW':
-        dispatch(moveViewUp());
+        dispatch(actions.moveViewUp());
         break;
       case 'KeyA':
-        dispatch(moveViewLeft());
+        dispatch(actions.moveViewLeft());
         break;
       case 'KeyS':
-        dispatch(moveViewDown());
+        dispatch(actions.moveViewDown());
         break;
       case 'KeyD':
-        dispatch(moveViewRight());
+        dispatch(actions.moveViewRight());
         break;
     }
   };
