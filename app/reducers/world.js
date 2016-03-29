@@ -11,17 +11,6 @@ const initialState = {
 
 };
 
-function addEntityToTile(map, entity, tileX, tileY) {
-  let coord = List([tileX, tileY]);
-  let tile = map.get(coord);
-  let entities = tile.get('entities');
-  entities = entities.push(entity);
-  tile = tile.set('entities', entities);
-  map = map.set(coord, tile);
-  return map;
-}
-
-
 let world = (state = initialState, action) => {
   switch (action.type) {
     case types.SET_WORLD:

@@ -35,7 +35,7 @@ function doInputHandling() {
 
 function step() {
   doInputHandling();
-  simulateWorld(store.getState);
+  simulateWorld(store.getState, store.dispatch);
   drawWorld(store.getState());
   requestAnimationFrame(step);
 }

@@ -1,9 +1,11 @@
 import {getRandomInt} from '../utils/getRandomInt';
+import uuid from 'uuid';
 
 let globalEntityList = [];
 
 let createStaticEntity = (x, y, type, tags = [], subType = 0) => {
   let e = {
+    id: uuid.v4(),
     pos: [x, y],
     type,
     tags,

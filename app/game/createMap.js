@@ -1,6 +1,7 @@
 import { Map, List } from 'immutable';
 import * as entities from './entities';
 import {getRandomInt} from '../utils/getRandomInt';
+import {addEntityToTile} from'./mapUtils';
 
 function createTile(i, j) {
   let tile = new Map({ entities: new List() });
@@ -38,5 +39,9 @@ export function createMap(width, height) {
       map = map.set(coord, createTile(i, j));
     }
   }
+
+  let colonist = entities.createColonist(5,5);
+  map = addEntityToTile(map,colonist, 5,5);
+
   return { map, entities: entities.getDynamicEntityList() };
 }
