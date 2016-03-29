@@ -107,10 +107,10 @@ function drawMap(state, ctx) {
       let tile = map.get(List([xTile, yTile]));
       if (tile) {
         let baseEntity = tile.get('base');
-        entityDrawer[baseEntity.type](ctx, x, y, baseEntity.subType);
+        entityDrawer[baseEntity.get('type')](ctx, x, y, baseEntity.get('subType'));
         let entities = tile.get('entities');
         entities.forEach(entity => {
-          entityDrawer[entity.type](ctx,x,y, entity.subType);
+          entityDrawer[entity.get('type')](ctx,x,y, entity.get('subType'));
         });
       }
     }

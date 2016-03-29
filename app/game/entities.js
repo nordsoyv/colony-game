@@ -1,7 +1,8 @@
 import {getRandomInt} from '../utils/getRandomInt';
+import {fromJS, List} from 'immutable';
 import uuid from 'uuid';
 
-let globalEntityList = [];
+let globalEntityList = new List();
 
 let createStaticEntity = (x, y, type, tags = [], subType = 0) => {
   let e = {
@@ -11,13 +12,13 @@ let createStaticEntity = (x, y, type, tags = [], subType = 0) => {
     tags,
     subType,
   };
-  return e;
+  return fromJS(e);
 };
 
 let createDynamicEntity = (x, y, type, tags = [], subType = 0) => {
   let e = createStaticEntity(x, y, type, tags, subType);
-  e.status = 'idle';
-  globalEntityList.push(e);
+  e = e.set('state', 'idle');
+
   return e;
 };
 
@@ -28,7 +29,7 @@ export function getDynamicEntityList() {
 }
 
 export function resetDynamicEntityList() {
-  globalEntityList = [];
+  globalEntityList = new List();
 }
 
 export let createDirtTile = (x, y)=> {
@@ -47,15 +48,20 @@ export let createGrassTile = (x, y)=> {
 
 export let createColonist = (x, y) => {
   let e = createDynamicEntity(x, y, 'human');
-  e.state = 'moving';
-  e.path = [[6, 5], [7, 5], [8, 5]];
+  e = e.set('state', 'moving');
+  e = e.set('path' , fromJS([[6, 5], [7, 5], [8, 5]]));
+  globalEntityList = globalEntityList.push(e);
   return e;
 };
 
 export let createTree = (x, y) => {
-  return createDynamicEntity(x, y, 'tree', [IMPASSABLE], getRandomInt(0, 3));
+  let e = createDynamicEntity(x, y, 'tree', [IMPASSABLE], getRandomInt(0, 3));
+  globalEntityList = globalEntityList.push(e);
+  return e;
 };
 
 export let createStone = (x, y) => {
-  return createDynamicEntity(x, y, 'stone', [IMPASSABLE], getRandomInt(0, 12));
+  let e =  createDynamicEntity(x, y, 'stone', [IMPASSABLE], getRandomInt(0, 12));
+  globalEntityList = globalEntityList.push(e);
+  return e;
 };

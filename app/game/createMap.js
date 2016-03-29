@@ -17,6 +17,7 @@ function createTile(i, j) {
     case 1:
     case 2:
       tile = tile.set('base', entities.createDirtTile(i, j));
+      tile = tile.set('entities', new List());
       break;
     default:
       tile = tile.set('base', entities.createGrassTile(i, j));
@@ -40,8 +41,8 @@ export function createMap(width, height) {
     }
   }
 
-  let colonist = entities.createColonist(5,5);
-  map = addEntityToTile(map,colonist, 5,5);
+  let colonist = entities.createColonist(5, 5);
 
+  map = addEntityToTile(map, colonist, new List([5,5]));
   return { map, entities: entities.getDynamicEntityList() };
 }
