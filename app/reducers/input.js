@@ -49,7 +49,10 @@ let input = (state = initialState, action) => {
       }
       return Object.assign({}, state, mouseState);
     case types.MOUSE_BUTTON_UP:
-      mouseState = createMouseState(action);
+      mouseState = {
+        mouseXPos: action.xPos,
+        mouseYPos: action.yPos
+      };
       if(isLeftButton(action.button)){
         mouseState.mouseLeftButton = false;
       }
