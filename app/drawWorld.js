@@ -150,7 +150,6 @@ export function drawWorld(state) {
   if (imagesLoaded) {
     drawMap(state, ctx);
   }
-  drawMouse(state, ctx);
   drawPaused(state, ctx);
 
 
