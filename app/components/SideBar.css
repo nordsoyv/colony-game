@@ -6,3 +6,7 @@
 .container h1 {
     color: black;
 }
+
+.container label {
+    color: black;
+}

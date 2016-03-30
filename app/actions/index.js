@@ -7,13 +7,13 @@ export function saveCtx(ctx) {
   }
 }
 
-export function setWorld(map, dynamicEntities){
+export function setWorld(map, dynamicEntities) {
   return {
     type: types.SET_WORLD,
     map,
     dynamicEntities,
-    width:100,
-    height:100
+    width: 100,
+    height: 100
   }
 }
 
@@ -23,7 +23,7 @@ export function pauseSimulation() {
   }
 }
 
-export function moveViewUp(){
+export function moveViewUp() {
   return {
     type: types.MOVE_VIEW,
     dir: 'UP',
@@ -31,7 +31,7 @@ export function moveViewUp(){
   }
 }
 
-export function moveViewDown(){
+export function moveViewDown() {
   return {
     type: types.MOVE_VIEW,
     dir: 'DOWN',
@@ -39,7 +39,7 @@ export function moveViewDown(){
   }
 }
 
-export function moveViewLeft(){
+export function moveViewLeft() {
   return {
     type: types.MOVE_VIEW,
     dir: 'LEFT',
@@ -47,7 +47,7 @@ export function moveViewLeft(){
   }
 }
 
-export function moveViewRight(){
+export function moveViewRight() {
   return {
     type: types.MOVE_VIEW,
     dir: 'RIGHT',
@@ -55,7 +55,7 @@ export function moveViewRight(){
   }
 }
 
-export function mouseButtonDown(button, xPos, yPos){
+export function mouseButtonDown(button, xPos, yPos) {
   return {
     type: types.MOUSE_BUTTON_DOWN,
     button,
@@ -64,7 +64,7 @@ export function mouseButtonDown(button, xPos, yPos){
   }
 }
 
-export function mouseButtonUp(button, xPos, yPos){
+export function mouseButtonUp(button, xPos, yPos) {
   return {
     type: types.MOUSE_BUTTON_UP,
     button,
@@ -74,7 +74,7 @@ export function mouseButtonUp(button, xPos, yPos){
   }
 }
 
-export function mouseMove(xPos, yPos){
+export function mouseMove(xPos, yPos) {
   return {
     type: types.MOUSE_MOVE,
     xPos,
@@ -82,14 +82,21 @@ export function mouseMove(xPos, yPos){
   }
 }
 
-export function mouseLeave(){
+export function mouseLeave() {
   return {
     type: types.MOUSE_LEAVE
   }
 }
 
-export function mouseDragDone(){
+export function mouseDragDone() {
   return {
     type: types.MOUSE_DRAG_DONE
+  }
+}
+
+export function setTool(tool) {
+  return {
+    type: types.SET_TOOL,
+    tool: tool
   }
 }

@@ -9,7 +9,8 @@ const initialState = {
   mouseYPos:0,
   mouseStartDragXPos:0,
   mouseStartDragYPos:0,
-  dragEvent: false
+  dragEvent: false,
+  selectedTool : 'move',
 };
 
 function isLeftButton(btn){
@@ -76,6 +77,8 @@ let input = (state = initialState, action) => {
         mouseStartDragYPos:0  });
     case types.MOUSE_DRAG_DONE:
       return Object.assign({}, state, {dragEvent:false});
+    case types.SET_TOOL:
+      return Object.assign({}, state, { selectedTool: action.tool});
     default:
       return state;
   }
