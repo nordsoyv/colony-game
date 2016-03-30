@@ -10,3 +10,7 @@
 .container label {
     color: black;
 }
+
+.container select {
+    margin-bottom:10px;
+}
