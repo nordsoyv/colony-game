@@ -10,7 +10,7 @@ const initialState = {
   mouseStartDragXPos:0,
   mouseStartDragYPos:0,
   dragEvent: false,
-  selectedTool : 'move',
+  selectedTool : 'command',
 };
 
 function isLeftButton(btn){

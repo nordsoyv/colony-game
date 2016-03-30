@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import {setTool} from '../actions';
+import {getTools} from '../game/tools';
 
 class ToolMenu extends Component {
   constructor(props) {
@@ -15,13 +16,15 @@ class ToolMenu extends Component {
   }
 
   render() {
+    const tools = getTools();
     return (
       <div >
         <label>Tools:</label>
         <select onChange={this.onSelect} ref="tool" value={this.props.selectedTool}>
-          <option value="move">Move</option>
-          <option value="cut">Cut</option>
-          <option value="harvest">Harvest</option>
+          {
+            Object.keys(tools).map(
+              (tool, i) => <option key={i} value={tools[tool].name} >{tools[tool].displayName}</option>
+            )}
         </select>
       </div>
     );

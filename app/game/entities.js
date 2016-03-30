@@ -49,7 +49,7 @@ export let createGrassTile = (x, y)=> {
 };
 
 export let createColonist = (x, y) => {
-  let e = createDynamicEntity(x, y, entityType.HUMAN);
+  let e = createDynamicEntity(x, y, entityType.HUMAN, [entityTags.COMMANDABLE]);
   e = e.set('state', 'moving');
   e = e.set('path' , fromJS([[6, 5], [7, 5], [8, 5]]));
   globalEntityList = globalEntityList.push(e);
@@ -63,7 +63,7 @@ export let createTree = (x, y) => {
 };
 
 export let createStone = (x, y) => {
-  let e =  createDynamicEntity(x, y, entityType.STONE, [entityTags.IMPASSABLE], getRandomInt(0, 12));
+  let e =  createDynamicEntity(x, y, entityType.STONE, [entityTags.IMPASSABLE, entityTags.MINEABLE], getRandomInt(0, 12));
   globalEntityList = globalEntityList.push(e);
   return e;
 };
