@@ -4,7 +4,7 @@ import React from 'react';
 import {render} from 'react-dom';
 import configureStore from './store/configureStore';
 import Root from './containers/Root';
-import {drawWorld} from './drawWorld';
+import {drawWorld, drawMouse} from './drawWorld';
 import {simulateWorld} from './game/simulateWorld';
 import {setupKeyBindings}from'./setupKeyBindings';
 import {createMap} from './game/createMap';
@@ -45,16 +45,22 @@ function doInputHandling() {
   }
 }
 
-function step() {
-  doInputHandling();
+function renderWorld() {
   drawWorld(store.getState());
-  requestAnimationFrame(step);
 }
 
-requestAnimationFrame(step);
+setInterval(renderWorld, 100);
 
 function doSimulationStep() {
   simulateWorld(store.getState, store.dispatch);
 }
 
 setInterval(doSimulationStep, 1000);
+
+function renderMouse() {
+  doInputHandling();
+  drawMouse(store.getState());
+  requestAnimationFrame(renderMouse);
+}
+
+requestAnimationFrame(renderMouse);

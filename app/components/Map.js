@@ -17,6 +17,7 @@ class Map extends Component {
   render() {
     return ( <div id="mapContainer" className={styles.container}>
         <canvas id="mainWindow" width="512" height="512" />
+        <canvas id="mouseWindow" width="512" height="512" />
       </div>
     )
   }

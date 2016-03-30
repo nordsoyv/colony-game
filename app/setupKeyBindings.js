@@ -10,7 +10,7 @@ function setupMouseBindings(dispatch) {
     };
   }
 
-  let canvas = document.getElementById('mainWindow');
+  let canvas = document.getElementById('mouseWindow');
   if (canvas) {
     canvas.onmousemove = function (event) {
       let pos = getMousePos(event, canvas);

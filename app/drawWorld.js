@@ -118,7 +118,11 @@ function drawMap(state, ctx) {
   }
 }
 
-function drawMouse(state, ctx) {
+export function drawMouse(state) {
+  let canvas = document.getElementById('mouseWindow');
+  let ctx = canvas.getContext("2d");
+  ctx.clearRect(0, 0, canvas.height, canvas.width);
+
   if (state.input.mouseLeftButton) {
     ctx.translate(0.5, 0.5);
     ctx.strokeStyle = "rgb(255,255,255)";
