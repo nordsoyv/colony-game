@@ -57,7 +57,7 @@ export let createColonist = (x, y) => {
 };
 
 export let createTree = (x, y) => {
-  let e = createDynamicEntity(x, y, entityType.TREE, [entityTags.IMPASSABLE], getRandomInt(0, 3));
+  let e = createDynamicEntity(x, y, entityType.TREE, [entityTags.IMPASSABLE, entityTags.CUTTABLE], getRandomInt(0, 3));
   globalEntityList = globalEntityList.push(e);
   return e;
 };

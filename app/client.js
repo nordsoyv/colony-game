@@ -8,7 +8,8 @@ import {drawWorld, drawMouse} from './drawWorld';
 import {simulateWorld} from './game/simulateWorld';
 import {setupKeyBindings}from'./setupKeyBindings';
 import {createMap} from './game/createMap';
-import {setWorld} from './actions';
+import {setWorld} from './actions/index';
+import {selectEntities} from './game/mapUtils';
 import './app.global.css';
 
 const store = configureStore();
@@ -29,6 +30,7 @@ render(
 function doInputHandling() {
   let state = store.getState();
   if (state.input.dragEvent) {
+    let tool = state.input.selectedTool;
     let xStart = state.input.mouseStartDragXPos;
     let yStart = state.input.mouseStartDragYPos;
     let xEnd = state.input.mouseXPos;
@@ -41,6 +43,11 @@ function doInputHandling() {
     height = Math.ceil(height / 16);
     let startXTile = Math.floor(xStart / 16);
     let startYTile = Math.floor((512 - yStart) / 16);
+    
+    let selected = selectEntities(state.world.map, 'CUTTABLE', startXTile,startYTile,width, height);
+
+    console.log(selected);
+
     store.dispatch({type: 'MOUSE_DRAG_DONE'});
   }
 }
