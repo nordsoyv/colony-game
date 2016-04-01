@@ -12,7 +12,7 @@
 
 .container canvas {
     position: absolute;
-    left: 150px;
+    left: 250px;
     top: 0px;
     border: 1px solid black;
 }

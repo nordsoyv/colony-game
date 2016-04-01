@@ -99,6 +99,7 @@ let entityDrawer = {
 
 function drawMap(state, ctx) {
   let map = state.world.map;
+  let entities = state.world.entities;
   let tileStartX = state.input.viewX;
   let tileStartY = state.input.viewY;
   for (let x = 0; x * tileSize < viewPortWidth; x++) {
@@ -109,8 +110,9 @@ function drawMap(state, ctx) {
       if (tile) {
         let baseEntity = tile.get('base');
         entityDrawer[baseEntity.get('type')](ctx, x, y, baseEntity.get('subType'));
-        let entities = tile.get('entities');
-        entities.forEach(entity => {
+        let entityIds = tile.get('entities');
+        entityIds.forEach(entityId => {
+          let entity = entities.get(entityId);
           entityDrawer[entity.get('type')](ctx,x,y, entity.get('subType'));
         });
       }

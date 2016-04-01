@@ -1,10 +1,9 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
-import * as types from '../game/entityTypes';
 
 function Entity(props){
-  return <li key={props.name} >{props.name}</li>;
+  return <li key={props.number} >{props.name + ' #' + props.id}</li>;
 }
 
 class SelectedEntities extends Component {
@@ -13,13 +12,16 @@ class SelectedEntities extends Component {
   }
 
   render() {
-    console.log(this.props);
-    let entities = this.props.selected.filter(entity => entity.get('type') == types.HUMAN);
+    if(this.props.selected.count() == 0){
+      return null;
+    }
+    let entities = this.props.selected.map(id => this.props.entities.get(id) );
+
     return (
       <div >
         <label>Selected:</label>
         <ul>
-          {entities.map(entity  => <Entity name={entity.get('name')} />)}
+          {entities.map( (entity, number ) => <Entity name={entity.get('name')} number={number} id={entity.get('id')} />)}
         </ul>
       </div>
     );
@@ -28,7 +30,8 @@ class SelectedEntities extends Component {
 
 function mapStateToProps(state) {
   return {
-    selected: state.world.selectedEntities
+    selected: state.world.selectedEntities,
+    entities: state.world.entities
   };
 }
 

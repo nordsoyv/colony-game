@@ -11,7 +11,7 @@ function createTile(i, j) {
     case 0:
       tile = tile.set('base', entities.createStoneTile(i, j));
       if (getRandomInt(0, 10) < 8) {
-        tile = tile.set('entities', tile.get('entities').push(entities.createStone(i, j)))
+        tile = tile.set('entities', tile.get('entities').push(entities.createStone(i, j).get('id')))
       }
       break;
     case 1:
@@ -22,7 +22,7 @@ function createTile(i, j) {
     default:
       tile = tile.set('base', entities.createGrassTile(i, j));
       if (getRandomInt(0, 10) == 0) {
-        tile = tile.set('entities', tile.get('entities').push(entities.createTree(i, j)))
+        tile = tile.set('entities', tile.get('entities').push(entities.createTree(i, j).get('id')))
       }
       break;
   }

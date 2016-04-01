@@ -29,7 +29,7 @@ export function doInputHandling(store) {
     let startXTile = Math.floor(xStart / 16);
     let startYTile = Math.floor((512 - yStart) / 16);
 
-    let selected = selectEntities(state.world.map, tool.affectTag, startXTile,startYTile,width, height);
+    let selected = selectEntities(state.world.map, state.world.entities, tool.affectTag, startXTile,startYTile,width, height);
     store.dispatch(setSelectedEntities(selected));
     store.dispatch({type: 'MOUSE_DRAG_DONE'});
   }

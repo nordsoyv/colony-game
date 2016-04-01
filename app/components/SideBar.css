@@ -15,6 +15,12 @@
     margin-bottom:10px;
 }
 
+.container ul {
+    padding-left: 25px;
+}
+
 .container li {
     color: black;
+    font-size: small;
+    list-style-type: disc;
 }
