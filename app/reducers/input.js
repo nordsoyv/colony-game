@@ -62,6 +62,19 @@ let input = (state = initialState, action) => {
       }
       mouseState.dragEvent = true;
       return Object.assign({}, state, mouseState);
+    case types.MOUSE_CLICK:
+      mouseState = {
+        mouseXPos: action.xPos,
+        mouseYPos: action.yPos
+      };
+      if(isLeftButton(action.button)){
+        mouseState.mouseLeftButton = false;
+      }
+      if(isRightButton(action.button)){
+        mouseState.mouseRightButton = false;
+      }
+      mouseState.dragEvent = false;
+      return Object.assign({}, state, mouseState);
     case types.MOUSE_MOVE:
       return Object.assign({},state, {
         mouseXPos: action.xPos,

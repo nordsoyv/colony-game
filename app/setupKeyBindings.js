@@ -1,5 +1,13 @@
 import * as actions from './actions';
 
+let mouseButtonDownPos = {};
+
+function isSmallMovement(pos) {
+  return !!(Math.abs(pos.x - mouseButtonDownPos.x) < 5 &&
+  Math.abs(pos.y - mouseButtonDownPos.y) < 5);
+
+}
+
 function setupMouseBindings(dispatch) {
 
   function getMousePos(event, canvas) {
@@ -14,15 +22,21 @@ function setupMouseBindings(dispatch) {
   if (canvas) {
     canvas.onmousemove = function (event) {
       let pos = getMousePos(event, canvas);
+
       dispatch(actions.mouseMove(pos.x, pos.y))
     };
     canvas.onmousedown = function (event) {
       let pos = getMousePos(event, canvas);
+      mouseButtonDownPos = pos;
       dispatch(actions.mouseButtonDown(event.button, pos.x, pos.y));
     };
     canvas.onmouseup = function (event) {
       let pos = getMousePos(event, canvas);
-      dispatch(actions.mouseButtonUp(event.button, pos.x, pos.y));
+      if (isSmallMovement(pos)) {
+        dispatch(actions.mouseClick(event.button, pos.x, pos.y));
+      } else {
+        dispatch(actions.mouseButtonUp(event.button, pos.x, pos.y));
+      }
     };
     canvas.onmouseleave = function () {
       dispatch(actions.mouseLeave());
@@ -34,16 +48,16 @@ function setupMouseBindings(dispatch) {
 }
 
 export function setupKeyBindings(dispatch) {
-/*
-  window.onresize = function () {
-    let rect = document.getElementById('mapContainer').getBoundingClientRect();
-    let canvas = document.getElementById('mainWindow');
+  /*
+   window.onresize = function () {
+   let rect = document.getElementById('mapContainer').getBoundingClientRect();
+   let canvas = document.getElementById('mainWindow');
 
-    //console.log(rect.width , rect.height);
-    canvas.width = rect.width;
-    canvas.height = rect.height;
-  };
-*/
+   //console.log(rect.width , rect.height);
+   canvas.width = rect.width;
+   canvas.height = rect.height;
+   };
+   */
   document.onkeypress = function (event) {
     switch (event.code) {
       case 'Space':

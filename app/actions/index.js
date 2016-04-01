@@ -70,7 +70,15 @@ export function mouseButtonUp(button, xPos, yPos) {
     button,
     xPos,
     yPos
+  }
+}
 
+export function mouseClick(button, xPos, yPos) {
+  return {
+    type: types.MOUSE_CLICK,
+    button,
+    xPos,
+    yPos
   }
 }
 

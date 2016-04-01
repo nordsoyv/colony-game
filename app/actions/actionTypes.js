@@ -10,6 +10,7 @@ export const MOUSE_BUTTON_UP = 'MOUSE_BUTTON_UP';
 export const MOUSE_MOVE = 'MOUSE_MOVE';
 export const MOUSE_LEAVE = 'MOUSE_LEAVE';
 export const MOUSE_DRAG_DONE = 'MOUSE_DRAG_DONE';
+export const MOUSE_CLICK = 'MOUSE_CLICK';
 export const INIT_SIMULATION = 'INIT_SIMULATION';
 export const PAUSE_SIMULATION = 'PAUSE_SIMULATION';
 export const SET_WORLD = 'SET_WORLD';

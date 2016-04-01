@@ -14,6 +14,13 @@ export function doInputHandling(store) {
     let width = xEnd - xStart;
     let height = yEnd - yStart;
 
+    // if(width < 5 && height < 5){
+    //   //click
+    //   console.log('click');
+    //   store.dispatch({type: 'MOUSE_DRAG_DONE'});
+    //   return ;
+    // }
+
     //make sure start point is the smallest coordinate
     if(xStart > xEnd) {
       xStart = xEnd;
