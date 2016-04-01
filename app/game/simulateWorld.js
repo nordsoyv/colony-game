@@ -20,8 +20,8 @@ function doHumanStep(entity, map) {
   return { entity, map };
 }
 
-export function simulateWorld(getState, dispatch) {
-  let state = getState();
+export function simulateWorld(store) {
+  let state = store.getState();
   if (state.world.paused) {
     return;
   }
@@ -36,7 +36,7 @@ export function simulateWorld(getState, dispatch) {
     }
   });
 
-  dispatch(setWorld(map, entities));
+  store.dispatch(setWorld(map, entities));
 
 }
 

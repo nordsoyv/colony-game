@@ -24,7 +24,7 @@ export function selectEntities(map, tag, startX, startY, width, height) {
     for (let y = startY; y <= startY + height; y++) {
       let coord = new List([x, y]);
       let tile = map.get(coord);
-      let entities = tile.get('entities');
+      let entities = tile.get('entities', List());
       entities.forEach(entity => {
         if (entity.get('tags').filter(t => t == tag).count() > 0) {
           selectedEntities = selectedEntities.push(entity);

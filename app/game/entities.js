@@ -3,6 +3,7 @@ import {fromJS, List} from 'immutable';
 import * as entityType from './entityTypes';
 import * as entityTags from './entityTags';
 import uuid from 'uuid';
+import * as names from 'random-name';
 
 let globalEntityList = new List();
 
@@ -52,6 +53,7 @@ export let createColonist = (x, y) => {
   let e = createDynamicEntity(x, y, entityType.HUMAN, [entityTags.COMMANDABLE]);
   e = e.set('state', 'moving');
   e = e.set('path' , fromJS([[6, 5], [7, 5], [8, 5]]));
+  e = e.set('name', names.first());
   globalEntityList = globalEntityList.push(e);
   return e;
 };

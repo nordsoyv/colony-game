@@ -14,3 +14,7 @@
 .container select {
     margin-bottom:10px;
 }
+
+.container li {
+    color: black;
+}

@@ -33,18 +33,16 @@ function renderWorld() {
   drawWorld(store.getState());
 }
 
-setInterval(renderWorld, 100);
-
-function doSimulationStep() {
-  simulateWorld(store.getState, store.dispatch);
-}
-
-setInterval(doSimulationStep, 1000);
-
 function renderMouse() {
   doInputHandling(store);
   drawMouse(store.getState());
   requestAnimationFrame(renderMouse);
 }
 
+function doSimulationStep() {
+  simulateWorld(store);
+}
+
+setInterval(renderWorld, 500);
+setInterval(doSimulationStep, 500);
 requestAnimationFrame(renderMouse);

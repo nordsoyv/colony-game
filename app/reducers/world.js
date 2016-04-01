@@ -1,4 +1,5 @@
 import * as types from '../actions/actionTypes'
+import { List } from 'immutable';
 
 const initialState = {
   map: null,
@@ -6,7 +7,7 @@ const initialState = {
   height: 0,
   entities: null,
   paused: true,
-  selectedEntities: null
+  selectedEntities: List()
 
 };
 
