@@ -11,6 +11,7 @@ import {createMap} from './game/createMap';
 import {setWorld} from './actions/index';
 import {selectEntities} from './game/mapUtils';
 import {getTool} from './game/tools';
+import {setSelectedEntities} from './actions';
 import './app.global.css';
 
 const store = configureStore();
@@ -55,9 +56,7 @@ function doInputHandling() {
     let startYTile = Math.floor((512 - yStart) / 16);
     
     let selected = selectEntities(state.world.map, tool.affectTag, startXTile,startYTile,width, height);
-
-    console.log(selected);
-
+    store.dispatch(setSelectedEntities(selected)); 
     store.dispatch({type: 'MOUSE_DRAG_DONE'});
   }
 }

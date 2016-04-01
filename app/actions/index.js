@@ -97,6 +97,13 @@ export function mouseDragDone() {
 export function setTool(tool) {
   return {
     type: types.SET_TOOL,
-    tool: tool
+    tool
+  }
+}
+
+export function setSelectedEntities(entities) {
+  return {
+    type: types.SET_SELECTED_ENTITIES,
+    entities
   }
 }

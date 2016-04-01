@@ -29,7 +29,7 @@ export function selectEntities(map, tag, startX, startY, width, height) {
         if (entity.get('tags').filter(t => t == tag).count() > 0) {
           selectedEntities = selectedEntities.push(entity);
         }
-      })
+      });
     }
   }
 
