@@ -23,7 +23,8 @@ function filterActions(getState, action) {
     types.MOUSE_BUTTON_DOWN,
     types.MOUSE_BUTTON_UP,
     types.SET_WORLD,
-    types.MOUSE_DRAG_DONE
+    types.MOUSE_DRAG_DONE,
+    types.MOUSE_DRAG,
   ];
 
   return !actionsToFilter.includes(action.type);

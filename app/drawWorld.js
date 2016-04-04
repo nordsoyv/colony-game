@@ -125,7 +125,7 @@ export function drawMouse(state) {
   let ctx = canvas.getContext("2d");
   ctx.clearRect(0, 0, canvas.height, canvas.width);
 
-  if (state.input.mouseLeftButton) {
+  if (state.input.isDragging) {
     ctx.translate(0.5, 0.5);
     ctx.strokeStyle = "rgb(255,255,255)";
     let width = state.input.mouseXPos - state.input.mouseStartDragXPos;

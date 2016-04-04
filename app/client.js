@@ -9,7 +9,6 @@ import {simulateWorld} from './game/simulateWorld';
 import {setupKeyBindings}from'./setupKeyBindings';
 import {createMap} from './game/createMap';
 import {setWorld} from './actions/index';
-import {doInputHandling} from './inputHandling';
 import './app.global.css';
 
 const store = configureStore();
@@ -34,7 +33,6 @@ function renderWorld() {
 }
 
 function renderMouse() {
-  doInputHandling(store);
   drawMouse(store.getState());
   requestAnimationFrame(renderMouse);
 }

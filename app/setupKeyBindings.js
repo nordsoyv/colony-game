@@ -1,11 +1,20 @@
 import * as actions from './actions';
 
 let mouseButtonDownPos = {};
+let mouseButtonLeft = false;
+let mouseButtonRight = false;
+
 
 function isSmallMovement(pos) {
   return !!(Math.abs(pos.x - mouseButtonDownPos.x) < 5 &&
   Math.abs(pos.y - mouseButtonDownPos.y) < 5);
+}
 
+function isLeftButton(btn) {
+  return btn == 0;
+}
+function isRightButton(btn) {
+  return btn == 2;
 }
 
 function setupMouseBindings(dispatch) {
@@ -22,23 +31,44 @@ function setupMouseBindings(dispatch) {
   if (canvas) {
     canvas.onmousemove = function (event) {
       let pos = getMousePos(event, canvas);
-
-      dispatch(actions.mouseMove(pos.x, pos.y))
+      if (mouseButtonLeft || mouseButtonRight) {
+        dispatch(actions.mouseDrag(mouseButtonDownPos.x, mouseButtonDownPos.y, pos.x, pos.y));
+      }
     };
     canvas.onmousedown = function (event) {
-      let pos = getMousePos(event, canvas);
-      mouseButtonDownPos = pos;
-      dispatch(actions.mouseButtonDown(event.button, pos.x, pos.y));
+      mouseButtonDownPos = getMousePos(event, canvas);
+      if (isLeftButton(event.button)) mouseButtonLeft = true;
+      if (isRightButton(event.button)) mouseButtonRight = true;
     };
     canvas.onmouseup = function (event) {
       let pos = getMousePos(event, canvas);
+      if (isLeftButton(event.button)) mouseButtonLeft = false;
+      if (isRightButton(event.button)) mouseButtonRight = false;
+
       if (isSmallMovement(pos)) {
         dispatch(actions.mouseClick(event.button, pos.x, pos.y));
       } else {
-        dispatch(actions.mouseButtonUp(event.button, pos.x, pos.y));
+        let startX, startY, endX, endY;
+        if (mouseButtonDownPos.x < pos.x) {
+          startX = mouseButtonDownPos.x;
+          endX = pos.x;
+        } else {
+          startX = pos.x;
+          endX = mouseButtonDownPos.x;
+        }
+        if (mouseButtonDownPos.y < pos.y) {
+          startY = mouseButtonDownPos.y;
+          endY = pos.y;
+        } else {
+          startY = pos.y;
+          endY = mouseButtonDownPos.y;
+        }
+        dispatch(actions.mouseDragDone(event.button, startX, startY, endX, endY));
       }
     };
     canvas.onmouseleave = function () {
+      mouseButtonLeft = false;
+      mouseButtonRight = false;
       dispatch(actions.mouseLeave());
     };
     return;

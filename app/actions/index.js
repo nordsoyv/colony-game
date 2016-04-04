@@ -55,36 +55,10 @@ export function moveViewRight() {
   }
 }
 
-export function mouseButtonDown(button, xPos, yPos) {
-  return {
-    type: types.MOUSE_BUTTON_DOWN,
-    button,
-    xPos,
-    yPos
-  }
-}
-
-export function mouseButtonUp(button, xPos, yPos) {
-  return {
-    type: types.MOUSE_BUTTON_UP,
-    button,
-    xPos,
-    yPos
-  }
-}
-
 export function mouseClick(button, xPos, yPos) {
   return {
     type: types.MOUSE_CLICK,
     button,
-    xPos,
-    yPos
-  }
-}
-
-export function mouseMove(xPos, yPos) {
-  return {
-    type: types.MOUSE_MOVE,
     xPos,
     yPos
   }
@@ -96,9 +70,24 @@ export function mouseLeave() {
   }
 }
 
-export function mouseDragDone() {
+export function mouseDragDone(button, startX, startY, endX, endY) {
   return {
-    type: types.MOUSE_DRAG_DONE
+    type: types.MOUSE_DRAG_DONE,
+    button,
+    startX,
+    startY,
+    endX,
+    endY
+  }
+}
+
+export function mouseDrag(startX, startY, endX, endY) {
+  return {
+    type: types.MOUSE_DRAG,
+    startX,
+    startY,
+    endX,
+    endY
   }
 }
 
