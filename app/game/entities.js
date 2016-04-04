@@ -2,7 +2,6 @@ import {getRandomInt} from '../utils/getRandomInt';
 import {fromJS, Map} from 'immutable';
 import * as entityType from './entityTypes';
 import * as entityTags from './entityTags';
-import uuid from 'uuid';
 import * as names from 'random-name';
 
 let lastId = 0;

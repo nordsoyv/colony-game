@@ -1,7 +1,7 @@
 import {take, put, select} from 'redux-saga/effects';
 import * as types from '../actions/actionTypes';
 import {getTool} from '../game/tools';
-import {selectEntities} from '../game/mapUtils';
+import {selectEntities} from '../game/map/mapUtils';
 import {setSelectedEntities} from '../actions';
 
 const getMapWidth = state => state.world.width;

@@ -7,7 +7,7 @@ import Root from './containers/Root';
 import {drawWorld, drawMouse} from './drawWorld';
 import {simulateWorld} from './game/simulateWorld';
 import {setupKeyBindings}from'./setupKeyBindings';
-import {createMap} from './game/createMap';
+import {createMap} from './game/map/createMap';
 import {setWorld} from './actions/index';
 import './app.global.css';
 

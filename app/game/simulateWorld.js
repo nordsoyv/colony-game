@@ -1,4 +1,4 @@
-import {addEntityToTile,removeEntityFromTile} from './mapUtils';
+import {addEntityToTile,removeEntityFromTile} from './map/mapUtils';
 import { List } from 'immutable';
 import {setWorld} from '../actions';
 import * as entityTypes from './entityTypes';

@@ -1,6 +1,6 @@
 import { Map, List } from 'immutable';
-import * as entities from './entities';
-import {getRandomInt} from '../utils/getRandomInt';
+import * as entities from '../entities';
+import {getRandomInt} from '../../utils/getRandomInt';
 import {addEntityToTile} from'./mapUtils';
 
 function createTile(i, j) {
