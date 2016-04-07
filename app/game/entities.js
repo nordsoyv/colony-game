@@ -6,8 +6,8 @@ import * as names from 'random-name';
 
 let lastId = 0;
 
-function getNextId(){
- return ++lastId;
+function getNextId() {
+  return ++lastId;
 }
 
 let globalEntityList = new Map();
@@ -59,7 +59,7 @@ export let createGrassTile = (x, y)=> {
 export let createColonist = (x, y) => {
   let e = createDynamicEntity(x, y, entityType.HUMAN, [entityTags.COMMANDABLE]);
   e = e.set('state', 'moving');
-  e = e.set('path', fromJS([[6, 5], [7, 5], [8, 5]]));
+  e = e.set('path', fromJS([[2, 2], [3, 3], [4, 4], [5, 5]]));
   e = e.set('name', names.first() + ' ' + names.last());
   console.log('colonist id', e.get('id'));
   addEntityToGlobalList(e);

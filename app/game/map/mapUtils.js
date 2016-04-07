@@ -9,9 +9,7 @@ export function addEntityToTile(map, entity, pos) {
 
 export function removeEntityFromTile(map, entity, pos) {
   let tile = map.get(pos);
-  console.log('before', tile.get('entities'));
   let entities = tile.get('entities').filter(id => id != entity.get('id'));
-  console.log('after', entities);
   tile = tile.set('entities', entities);
   map = map.set(pos, tile);
   return map;

@@ -41,8 +41,8 @@ export function createMap(width, height) {
     }
   }
 
-  let colonist = entities.createColonist(5, 5);
+  let colonist = entities.createColonist(1, 1);
 
-  map = addEntityToTile(map, colonist, new List([5,5]));
+  map = addEntityToTile(map, colonist, new List([1,1]));
   return { map, entities: entities.getDynamicEntityList() };
 }

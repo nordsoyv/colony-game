@@ -12,7 +12,7 @@ function loadImages() {
   terrainTiles = document.getElementById('terrain');
   humanTiles = document.getElementById('humans');
   itemTiles = document.getElementById('items');
-  if(terrainTiles && humanTiles && itemTiles){
+  if (terrainTiles && humanTiles && itemTiles) {
     imagesLoaded = true;
   }
   if (!imagesLoaded) {
@@ -33,7 +33,7 @@ function drawTerrain(ctx, tileX, tileY, destX, destY) {
     tileSize,
     tileSize,
     destX * tileSize,
-    viewPortHeight - (destY * tileSize),
+    viewPortHeight - 16 - (destY * tileSize),
     tileSize,
     tileSize);
 }
@@ -46,7 +46,7 @@ function drawHumanTile(ctx, tileX, tileY, destX, destY) {
     tileSize,
     tileSize,
     destX * tileSize,
-    viewPortHeight - (destY * tileSize),
+    viewPortHeight - 16 - (destY * tileSize),
     tileSize,
     tileSize);
 }
@@ -59,7 +59,7 @@ function drawItemTile(ctx, tileX, tileY, destX, destY) {
     tileSize,
     tileSize,
     destX * tileSize,
-    viewPortHeight - (destY * tileSize),
+    viewPortHeight - 16 - (destY * tileSize),
     tileSize,
     tileSize);
 }
@@ -84,12 +84,12 @@ function drawDirtTile(ctx, xPos, yPos) {
   drawTerrain(ctx, 5, 11, xPos, yPos);
 }
 
-function drawStone(ctx, xPos, yPos, subType){
+function drawStone(ctx, xPos, yPos, subType) {
   drawItemTile(ctx, 36 + subType, 5, xPos, yPos);
 }
 
 let entityDrawer = {
-  [entityTypes.HUMAN] : drawHuman,
+  [entityTypes.HUMAN]: drawHuman,
   [entityTypes.TREE]: drawTree,
   [entityTypes.STONE]: drawStone,
   [entityTypes.GRASS_TILE]: drawGrassTile,
@@ -113,7 +113,7 @@ function drawMap(state, ctx) {
         let entityIds = tile.get('entities');
         entityIds.forEach(entityId => {
           let entity = entities.get(entityId);
-          entityDrawer[entity.get('type')](ctx,x,y, entity.get('subType'));
+          entityDrawer[entity.get('type')](ctx, x, y, entity.get('subType'));
         });
       }
     }
@@ -136,7 +136,7 @@ export function drawMouse(state) {
 }
 
 function drawPaused(state, ctx) {
-  if(state.world.paused){
+  if (state.world.paused) {
     ctx.fillStyle = 'white';
     ctx.font = "48px serif";
     ctx.fillText('PAUSED', 200, 200);
