@@ -90,6 +90,9 @@ export function setupKeyBindings(dispatch) {
    */
   document.onkeypress = function (event) {
     switch (event.code) {
+      case 'KeyQ':
+        dispatch(actions.setDebug());
+        break;
       case 'Space':
         dispatch(actions.pauseSimulation());
         break;

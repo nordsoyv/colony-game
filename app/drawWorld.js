@@ -5,8 +5,9 @@ const tileSize = 16;
 let terrainTiles;
 let humanTiles;
 let itemTiles;
-
 let imagesLoaded = false;
+let debug = false;
+let debugPaths = [];
 
 function loadImages() {
   terrainTiles = document.getElementById('terrain');
@@ -25,7 +26,7 @@ loadImages();
 let viewPortWidth = 512;
 let viewPortHeight = 512;
 
-function drawSprite(ctx, image, tileX, tileY, destX, destY){
+function drawSprite(ctx, image, tileX, tileY, destX, destY) {
   ctx.drawImage(
     image,
     tileX * tileSize,
@@ -39,19 +40,19 @@ function drawSprite(ctx, image, tileX, tileY, destX, destY){
 }
 
 function drawTerrain(ctx, tileX, tileY, destX, destY) {
-  drawSprite(ctx, terrainTiles, tileX,tileY, destX, destY);
+  drawSprite(ctx, terrainTiles, tileX, tileY, destX, destY);
 }
 
 function drawHumanTile(ctx, tileX, tileY, destX, destY) {
-  drawSprite(ctx, humanTiles, tileX,tileY, destX, destY);
+  drawSprite(ctx, humanTiles, tileX, tileY, destX, destY);
 }
 
 function drawItemTile(ctx, tileX, tileY, destX, destY) {
-  drawSprite(ctx, itemTiles, tileX,tileY, destX, destY);
+  drawSprite(ctx, itemTiles, tileX, tileY, destX, destY);
 }
 
 function drawHuman(ctx, destX, destY) {
-  drawHumanTile(ctx, 1, 0, destX, destY)
+  drawHumanTile(ctx, 1, 0, destX, destY);
 }
 
 function drawGrassTile(ctx, xPos, yPos) {
@@ -99,6 +100,11 @@ function drawMap(state, ctx) {
         let entityIds = tile.get('entities');
         entityIds.forEach(entityId => {
           let entity = entities.get(entityId);
+          if (debug) {
+            if (entity.get('path', null)) {
+              debugPaths.push(entity.get('path'));
+            }
+          }
           entityDrawer[entity.get('type')](ctx, x, y, entity.get('subType'));
         });
       }
@@ -129,14 +135,52 @@ function drawPaused(state, ctx) {
   }
 }
 
+function drawPaths(ctx) {
+  debugPaths.forEach(path => {
+    if (path.count() < 2) {
+      // dont draw short paths
+      return;
+    }
+
+    ctx.translate(0.5, 0.5);
+    ctx.strokeStyle = "rgb(255,45,27)";
+    ctx.beginPath();
+
+    let first = path.get(0);
+
+    let xPos = (first.get(0) * 16) - 8;
+    let yPos =  viewPortHeight - (first.get(1) * 16) + 8;
+    ctx.moveTo(xPos,yPos);
+
+    for (let i = 1; i < path.count(); i++) {
+      let node = path.get(i);
+      let xPos = (node.get(0) * 16) - 8;
+      let yPos =  viewPortHeight - (node.get(1) * 16) + 8;
+      ctx.lineTo(xPos,yPos);
+    }
+
+    ctx.stroke();
+    ctx.translate(-0.5, -0.5);
+  })
+}
+
+
 export function drawWorld(state) {
   let canvas = document.getElementById('mainWindow');
   viewPortHeight = canvas.height;
   viewPortWidth = canvas.width;
   let ctx = state.globals.ctx;
+  debug = state.globals.debug;
+  if (debug) {
+    debugPaths = [];
+  }
   ctx.clearRect(0, 0, viewPortWidth, viewPortHeight);
   if (imagesLoaded) {
     drawMap(state, ctx);
+  }
+
+  if (debug) {
+    drawPaths(ctx);
   }
   drawPaused(state, ctx);
 

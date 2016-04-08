@@ -17,3 +17,4 @@ export const PAUSE_SIMULATION = 'PAUSE_SIMULATION';
 export const SET_WORLD = 'SET_WORLD';
 export const SET_TOOL = 'SET_TOOL';
 export const SET_SELECTED_ENTITIES = 'SET_SELECTED_ENTITIES';
+export const DEBUG_MODE = 'DEBUG_MODE';

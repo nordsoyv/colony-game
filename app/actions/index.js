@@ -7,6 +7,12 @@ export function saveCtx(ctx) {
   }
 }
 
+export function setDebug() {
+  return {
+    type: types.DEBUG_MODE
+  }
+}
+
 export function setWorld(map, dynamicEntities) {
   return {
     type: types.SET_WORLD,
