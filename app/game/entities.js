@@ -2,6 +2,7 @@ import {getRandomInt} from '../utils/getRandomInt';
 import {fromJS, Map} from 'immutable';
 import * as entityType from './entityTypes';
 import * as entityTags from './entityTags';
+import * as entityStates from './entityStates';
 import * as names from 'random-name';
 
 let lastId = 0;
@@ -25,7 +26,7 @@ let createStaticEntity = (x, y, type, tags = [], subType = 0) => {
 
 let createDynamicEntity = (x, y, type, tags = [], subType = 0) => {
   let e = createStaticEntity(x, y, type, tags, subType);
-  e = e.set('state', 'idle');
+  e = e.set('state', entityStates.IDLE);
   return e;
 };
 
@@ -58,8 +59,7 @@ export let createGrassTile = (x, y)=> {
 
 export let createColonist = (x, y) => {
   let e = createDynamicEntity(x, y, entityType.HUMAN, [entityTags.COMMANDABLE]);
-  e = e.set('state', 'moving');
-  e = e.set('path', fromJS([[2, 2], [3, 3], [4, 4], [5, 5]]));
+  e = e.set('state', entityStates.IDLE);
   e = e.set('name', names.first() + ' ' + names.last());
   console.log('colonist id', e.get('id'));
   addEntityToGlobalList(e);
