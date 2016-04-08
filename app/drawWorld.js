@@ -25,9 +25,9 @@ loadImages();
 let viewPortWidth = 512;
 let viewPortHeight = 512;
 
-function drawTerrain(ctx, tileX, tileY, destX, destY) {
+function drawSprite(ctx, image, tileX, tileY, destX, destY){
   ctx.drawImage(
-    terrainTiles,
+    image,
     tileX * tileSize,
     tileY * tileSize,
     tileSize,
@@ -36,32 +36,18 @@ function drawTerrain(ctx, tileX, tileY, destX, destY) {
     viewPortHeight - 16 - (destY * tileSize),
     tileSize,
     tileSize);
+}
+
+function drawTerrain(ctx, tileX, tileY, destX, destY) {
+  drawSprite(ctx, terrainTiles, tileX,tileY, destX, destY);
 }
 
 function drawHumanTile(ctx, tileX, tileY, destX, destY) {
-  ctx.drawImage(
-    humanTiles,
-    tileX * tileSize,
-    tileY * tileSize,
-    tileSize,
-    tileSize,
-    destX * tileSize,
-    viewPortHeight - 16 - (destY * tileSize),
-    tileSize,
-    tileSize);
+  drawSprite(ctx, humanTiles, tileX,tileY, destX, destY);
 }
 
 function drawItemTile(ctx, tileX, tileY, destX, destY) {
-  ctx.drawImage(
-    itemTiles,
-    tileX * tileSize,
-    tileY * tileSize,
-    tileSize,
-    tileSize,
-    destX * tileSize,
-    viewPortHeight - 16 - (destY * tileSize),
-    tileSize,
-    tileSize);
+  drawSprite(ctx, itemTiles, tileX,tileY, destX, destY);
 }
 
 function drawHuman(ctx, destX, destY) {
