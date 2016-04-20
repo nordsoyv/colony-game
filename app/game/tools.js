@@ -15,7 +15,7 @@ let tools = {
     handleLeftClick: function (world, xTile, yTile) {
       console.log(`Command left click at pos [${xTile}, ${yTile}]`);
       let selected = world.selectedEntities;
-      let path = getPath(world.map, 0, 0, 0, 0);
+      let path = getPath(world, 0, 0, 0, 0);
       let entities = world.entities;
       selected.forEach( entityId => {
         let entity = entities.get(entityId);

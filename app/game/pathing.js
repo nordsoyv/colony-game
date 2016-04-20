@@ -1,7 +1,12 @@
 import {fromJS} from 'immutable';
 
-export function getPath(map, startX, startY, endX, endY){
+let open = [];
+let closed = [];
 
+export function getPath(world, startX, startY, endX, endY){
+
+  let { map , entities}  = world;
+  
   return fromJS( [
     [2, 2],
     [3, 3],
