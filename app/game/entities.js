@@ -1,5 +1,4 @@
 import {getRandomInt} from '../utils/getRandomInt';
-import {fromJS, Map} from 'immutable';
 import * as entityType from './entityTypes';
 import * as entityTags from './entityTags';
 import * as entityStates from './entityStates';
@@ -11,22 +10,21 @@ function getNextId() {
   return ++lastId;
 }
 
-let globalEntityList = new Map();
+let globalEntityList = {};
 
 let createStaticEntity = (x, y, type, tags = [], subType = 0) => {
-  let e = {
+  return {
     id: getNextId(),
     pos: [x, y],
     type,
     tags,
     subType,
   };
-  return fromJS(e);
 };
 
 let createDynamicEntity = (x, y, type, tags = [], subType = 0) => {
   let e = createStaticEntity(x, y, type, tags, subType);
-  e = e.set('state', entityStates.IDLE);
+  e.state = entityStates.IDLE;
   return e;
 };
 
@@ -36,11 +34,11 @@ export function getDynamicEntityList() {
 }
 
 export function resetDynamicEntityList() {
-  globalEntityList = new Map();
+  globalEntityList = {};
 }
 
 function addEntityToGlobalList(entity) {
-  globalEntityList = globalEntityList.set(entity.get('id'), entity);
+  globalEntityList[entity.id] = entity;
 }
 
 export let createDirtTile = (x, y)=> {
@@ -59,23 +57,23 @@ export let createGrassTile = (x, y)=> {
 
 export let createColonist = (x, y) => {
   let e = createDynamicEntity(x, y, entityType.HUMAN, [entityTags.COMMANDABLE]);
-  e = e.set('state', entityStates.IDLE);
-  e = e.set('name', names.first() + ' ' + names.last());
-  console.log('colonist id', e.get('id'));
+  e.state = entityStates.IDLE;
+  e.name =  names.first() + ' ' + names.last();
+  console.log('colonist id', e.id);
   addEntityToGlobalList(e);
   return e;
 };
 
 export let createTree = (x, y) => {
   let e = createDynamicEntity(x, y, entityType.TREE, [entityTags.IMPASSABLE, entityTags.CUTTABLE], getRandomInt(0, 3));
-  e = e.set('name', 'Tree');
+  e.name =  'Tree';
   addEntityToGlobalList(e);
   return e;
 };
 
 export let createStone = (x, y) => {
   let e = createDynamicEntity(x, y, entityType.STONE, [entityTags.IMPASSABLE, entityTags.MINEABLE], getRandomInt(0, 12));
-  e = e.set('name', 'Stone');
+  e.name = 'Stone';
   addEntityToGlobalList(e);
   return e;
 };

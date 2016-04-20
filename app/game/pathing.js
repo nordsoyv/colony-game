@@ -1,4 +1,3 @@
-import {fromJS} from 'immutable';
 
 let open = [];
 let closed = [];
@@ -7,7 +6,7 @@ export function getPath(world, startX, startY, endX, endY){
 
   let { map , entities}  = world;
   
-  return fromJS( [
+  return [
     [2, 2],
     [3, 3],
     [4, 4],
@@ -17,7 +16,7 @@ export function getPath(world, startX, startY, endX, endY){
     [8, 8],
     [9, 9],
     [10, 10]
-  ]);
+  ];
   
   
 }

@@ -1,35 +1,39 @@
-import {List} from 'immutable';
+export function addEntityToTile(map, entity, xPos, yPos) {
+  try{
+    let coord = createCoords(xPos,yPos);
+    map[coord].entities.push(entity);
+  } catch(e){
+    console.log(entity);
+    console.log(xPos);
+    console.log(yPos);
+   console.trace();
+  }
 
-export function addEntityToTile(map, entity, pos) {
-  let tile = map.get(pos);
-  tile = tile.set('entities', tile.get('entities').push(entity.get('id')));
-  map = map.set(pos, tile);
-  return map;
 }
 
-export function removeEntityFromTile(map, entity, pos) {
-  let tile = map.get(pos);
-  let entities = tile.get('entities').filter(id => id != entity.get('id'));
-  tile = tile.set('entities', entities);
-  map = map.set(pos, tile);
-  return map;
+export function removeEntityFromTile(map, entityToRemove, xPos, yPos) {
+  let coord = createCoords(xPos,yPos);
+  let tile = map[coord];
+  tile.entities = tile.entities.filter(entity => entity.id != entityToRemove.id);
 }
 
-export function selectEntities(map, globalEntities, tag, startX, startY, width, height) {
-  let selectedEntities = new List();
+export function selectEntities(map, tag, startX, startY, width, height) {
+  let selectedEntities = [];
   for (let x = startX; x <= startX + width; x++) {
     for (let y = startY; y <= startY + height; y++) {
-      let coord = new List([x, y]);
-      let tile = map.get(coord);
-      let entityIds = tile.get('entities', List());
-      entityIds.forEach(entityId => {
-        let entity = globalEntities.get(entityId);
-        if (entity.get('tags').filter(t => t == tag).count() > 0) {
-          selectedEntities = selectedEntities.push(entity.get('id'));
+      let coord = createCoords(x,y);
+      let tile = map[coord];
+      tile.entities.forEach(entity => {
+        if (entity.tags.filter(t => t == tag).length > 0) {
+          selectedEntities.push(entity);
         }
       });
     }
   }
 
   return selectedEntities;
+}
+
+export function createCoords(x,y){
+  return x + "_" + y;
 }

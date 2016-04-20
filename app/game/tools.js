@@ -17,11 +17,9 @@ let tools = {
       let selected = world.selectedEntities;
       let path = getPath(world, 0, 0, 0, 0);
       let entities = world.entities;
-      selected.forEach( entityId => {
-        let entity = entities.get(entityId);
-        entity = entity.set('state', entityStates.MOVING);
-        entity = entity.set('path', path);
-        entities = entities.set(entityId, entity);
+      selected.forEach( entity => {
+        entity.state = entityStates.MOVING;
+        entity.path = path;
       } );
       return {map : world.map, entities};
     },

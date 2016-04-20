@@ -1,6 +1,5 @@
 import {take, put, select} from 'redux-saga/effects';
 import * as types from '../actions/actionTypes';
-import * as actions from '../actions';
 import {getTool} from '../game/tools';
 import {selectEntities} from '../game/map/mapUtils';
 import {setSelectedEntities} from '../actions';
@@ -9,7 +8,6 @@ const getMapWidth = state => state.world.width;
 const getMapHeight = state => state.world.height;
 const getMap = state => state.world.map;
 const getWorld = state => state.world;
-const getEntities = state => state.world.entities;
 const getInput = state => state.input;
 const getSelectedTool = state => state.input.selectedTool;
 
@@ -67,8 +65,7 @@ function* handleMouseCLick() {
     let tool = getTool(toolName);
     let world = yield select(getWorld);
     if (action.button === 0) {
-      let {map, entities} = tool.handleLeftClick(world, xTile, yTile);
-      yield put(actions.setWorld(map, entities));
+      tool.handleLeftClick(world, xTile, yTile);
     } else if (action.button === 2) {
       tool.handleRightClick(world, xTile, yTile);
     }
@@ -79,7 +76,6 @@ function* handleMouseCLick() {
 function* handleMouseDrag() {
   while (true) {
     let action = yield take(types.MOUSE_DRAG_DONE);
-    let entities = yield select(getEntities);
     let map = yield select(getMap);
     let toolName = yield select(getSelectedTool);
     let tool = getTool(toolName);
@@ -100,7 +96,7 @@ function* handleMouseDrag() {
     }
     let startXTile = Math.floor(xStart / 16);
     let startYTile = Math.floor((512 - yStart) / 16);
-    let selected = selectEntities(map, entities, tool.affectTag, startXTile, startYTile, width, height);
+    let selected = selectEntities(map, tool.affectTag, startXTile, startYTile, width, height);
     yield put(setSelectedEntities(selected));
   }
 }

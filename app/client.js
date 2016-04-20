@@ -25,9 +25,6 @@ render(
   document.getElementById('root')
 );
 
-
-
-
 function renderWorld() {
   drawWorld(store.getState());
 }

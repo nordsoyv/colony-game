@@ -1,28 +1,27 @@
-import { Map, List } from 'immutable';
-import * as entities from '../entities';
+import * as entityFactory from '../entities';
 import {getRandomInt} from '../../utils/getRandomInt';
-import {addEntityToTile} from'./mapUtils';
+import {addEntityToTile, createCoords} from'./mapUtils';
+
 
 function createTile(i, j) {
-  let tile = new Map({ entities: new List() });
+  let tile = { entities: [] };
 
   let type = getRandomInt(0, 10);
   switch (type) {
     case 0:
-      tile = tile.set('base', entities.createStoneTile(i, j));
+      tile.base = entityFactory.createStoneTile(i, j);
       if (getRandomInt(0, 10) < 8) {
-        tile = tile.set('entities', tile.get('entities').push(entities.createStone(i, j).get('id')))
+        tile.entities.push(entityFactory.createStone(i, j))
       }
       break;
     case 1:
     case 2:
-      tile = tile.set('base', entities.createDirtTile(i, j));
-      tile = tile.set('entities', new List());
+      tile.base = entityFactory.createDirtTile(i, j);
       break;
     default:
-      tile = tile.set('base', entities.createGrassTile(i, j));
+      tile.base = entityFactory.createGrassTile(i, j);
       if (getRandomInt(0, 10) == 0) {
-        tile = tile.set('entities', tile.get('entities').push(entities.createTree(i, j).get('id')))
+        tile.entities.push(entityFactory.createTree(i, j))
       }
       break;
   }
@@ -31,18 +30,18 @@ function createTile(i, j) {
 
 
 export function createMap(width, height) {
-  entities.resetDynamicEntityList();
+  entityFactory.resetDynamicEntityList();
 
-  let map = new Map();
+  let map = {};
   for (let i = 0; i < width; i++) {
     for (let j = 0; j < height; j++) {
-      let coord = List([i, j]);
-      map = map.set(coord, createTile(i, j));
+      let coord = createCoords(i, j);
+      map[coord] = createTile(i, j);
     }
   }
 
-  let colonist = entities.createColonist(1, 1);
+  let colonist = entityFactory.createColonist(1, 1);
 
-  map = addEntityToTile(map, colonist, new List([1,1]));
-  return { map, entities: entities.getDynamicEntityList() };
+  addEntityToTile(map, colonist, 1, 1);
+  return { map, entities: entityFactory.getDynamicEntityList() };
 }

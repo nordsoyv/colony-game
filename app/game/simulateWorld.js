@@ -1,23 +1,19 @@
-import {addEntityToTile,removeEntityFromTile} from './map/mapUtils';
-import { List } from 'immutable';
-import {setWorld} from '../actions';
+import {addEntityToTile, removeEntityFromTile} from './map/mapUtils';
 import * as entityTypes from './entityTypes';
+import * as entityState from './entityStates';
 
 function doHumanStep(entity, map) {
-  if (entity.get('state') == 'moving') {
-    let path = entity.get('path', new List());
-    if (path.count() == 0) {
-      entity = entity.set('state', 'idle');
+  if (entity.state == entityState.MOVING) {
+    let path = entity.path;
+    if (path.length == 0) {
+      entity.state = entityState.IDLE;
     } else {
-      let currPos = entity.get('pos');
-      let nextPos = path.first();
-      map = removeEntityFromTile(map, entity, currPos);
-      entity = entity.set('pos', nextPos);
-      entity = entity.set('path', path.shift());
-      map = addEntityToTile(map, entity, nextPos, nextPos);
+      removeEntityFromTile(map, entity, entity.pos[0], entity.pos[1]);
+      let nextPos = entity.path.shift();
+      entity.pos = nextPos;
+      addEntityToTile(map, entity, nextPos[0], nextPos[1]);
     }
   }
-  return { entity, map };
 }
 
 export function simulateWorld(store) {
@@ -28,15 +24,11 @@ export function simulateWorld(store) {
 
   let map = state.world.map;
   let entities = state.world.entities;
-  entities.forEach((entity, index) => {
-    if (entity.get('type') == entityTypes.HUMAN) {
-      let ret = doHumanStep(entity, map);
-      map = ret.map;
-      entities = entities.set(index, ret.entity);
+  Object.keys(entities).forEach(entityId => {
+    let entity = entities[entityId];
+    if (entity.type == entityTypes.HUMAN) {
+      doHumanStep(entity, map);
     }
   });
-
-  store.dispatch(setWorld(map, entities));
-
 }
 

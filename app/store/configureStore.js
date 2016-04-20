@@ -1,7 +1,5 @@
 import { createStore, compose, applyMiddleware } from 'redux';
-import { persistState } from 'redux-devtools';
 import rootReducer from '../reducers';
-import DevTools from '../containers/DevTools';
 import sagaMiddleware from 'redux-saga';
 import sagas from '../sagas';
 

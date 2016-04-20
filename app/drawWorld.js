@@ -1,5 +1,5 @@
-import {List} from 'immutable';
 import * as entityTypes from './game/entityTypes';
+import {createCoords} from './game/map/mapUtils';
 
 const tileSize = 16;
 let terrainTiles;
@@ -86,26 +86,22 @@ let entityDrawer = {
 
 function drawMap(state, ctx) {
   let map = state.world.map;
-  let entities = state.world.entities;
   let tileStartX = state.input.viewX;
   let tileStartY = state.input.viewY;
   for (let x = 0; x * tileSize < viewPortWidth; x++) {
     for (let y = 0; y * tileSize < viewPortHeight; y++) {
       let xTile = tileStartX + x;
       let yTile = tileStartY + y;
-      let tile = map.get(List([xTile, yTile]));
+      let tile = map[createCoords(xTile, yTile)];
       if (tile) {
-        let baseEntity = tile.get('base');
-        entityDrawer[baseEntity.get('type')](ctx, x, y, baseEntity.get('subType'));
-        let entityIds = tile.get('entities');
-        entityIds.forEach(entityId => {
-          let entity = entities.get(entityId);
+        entityDrawer[tile.base.type](ctx, x, y, tile.subType);
+        tile.entities.forEach(entity => {
           if (debug) {
-            if (entity.get('path', null)) {
-              debugPaths.push(entity.get('path'));
+            if (entity.path) {
+              debugPaths.push(entity.path);
             }
           }
-          entityDrawer[entity.get('type')](ctx, x, y, entity.get('subType'));
+          entityDrawer[entity.type](ctx, x, y, entity.subType);
         });
       }
     }
@@ -137,7 +133,7 @@ function drawPaused(state, ctx) {
 
 function drawPaths(ctx) {
   debugPaths.forEach(path => {
-    if (path.count() < 2) {
+    if (path.length < 2) {
       // dont draw short paths
       return;
     }
@@ -146,16 +142,16 @@ function drawPaths(ctx) {
     ctx.strokeStyle = "rgb(255,45,27)";
     ctx.beginPath();
 
-    let first = path.get(0);
+    let first = path[0];
 
-    let xPos = (first.get(0) * 16) - 8;
-    let yPos =  viewPortHeight - (first.get(1) * 16) + 8;
+    let xPos = (first[0] * 16) - 8;
+    let yPos =  viewPortHeight - (first[1] * 16) + 8;
     ctx.moveTo(xPos,yPos);
 
-    for (let i = 1; i < path.count(); i++) {
-      let node = path.get(i);
-      let xPos = (node.get(0) * 16) - 8;
-      let yPos =  viewPortHeight - (node.get(1) * 16) + 8;
+    for (let i = 1; i < path.length ; i++) {
+      let node = path[i];
+      let xPos = (node[0] * 16) - 8;
+      let yPos =  viewPortHeight - (node[1] * 16) + 8;
       ctx.lineTo(xPos,yPos);
     }
 

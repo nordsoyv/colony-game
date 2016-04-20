@@ -12,16 +12,14 @@ class SelectedEntities extends Component {
   }
 
   render() {
-    if(this.props.selected.count() == 0){
+    if(this.props.selected.length == 0){
       return null;
     }
-    let entities = this.props.selected.map(id => this.props.entities.get(id) );
-
     return (
       <div >
         <label>Selected:</label>
         <ul>
-          {entities.map( (entity, number ) => <Entity name={entity.get('name')} number={number} id={entity.get('id')} />)}
+          {this.props.selected.map( (entity, number ) => <Entity name={entity.name} number={number} id={entity.id} />)}
         </ul>
       </div>
     );
